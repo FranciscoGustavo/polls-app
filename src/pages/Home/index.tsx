@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, Container, Grid, Typography } from '@material-ui/core';
+import { Box, Container, Grid } from '@material-ui/core';
 import { Layout, PollCard } from '../../components';
 import { useStyles } from './styles';
 

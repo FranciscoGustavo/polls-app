@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Box,
   Card,
@@ -30,7 +31,9 @@ const PollCard: FC = () => {
           </Box>
         </CardContent>
         <CardActions>
-          <Button>Contestar</Button>
+          <Button component={Link} to="/polls/5/answer">
+            Contestar
+          </Button>
         </CardActions>
       </Card>
     </Box>
