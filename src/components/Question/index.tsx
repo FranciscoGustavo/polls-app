@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { FC } from 'react';
 import {
   Box,
   Grid,
@@ -10,38 +10,32 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { v4 as uuidv4 } from 'uuid';
+import { useQuestionForm } from '../../hooks';
 import Answer from '../Answer';
 import { useStyles } from './styles';
 
 type QuestionProps = {
-  onRemoveQuestion: () => void;
+  uid: string;
+  onGetQuestion: OnGetQuestion;
+  onRemoveQuestion: (uid: string) => void;
 };
-const Question: FC<QuestionProps> = ({ onRemoveQuestion }) => {
-  const [typeQuestion, setTypeQuestion] = useState('open_question');
-  const [answers, setAnswers] = useState([{ uid: uuidv4() }]);
-
-  const onChageTypeQuestion = () => {
-    if (typeQuestion === 'open_question') {
-      setTypeQuestion('multiple_choice');
-      return;
-    }
-    setTypeQuestion('open_question');
-    return;
-  };
-
-  const onAddAnswer = () => {
-    setAnswers([...answers, { uid: uuidv4() }]);
-  };
-
-  const onRemoveAnswer = (uid: string) => {
-    const filteredAnswer = answers.filter(
-      ({ uid: uidAnswer }) => uidAnswer !== uid
-    );
-    setAnswers(filteredAnswer);
-  };
-
+const Question: FC<QuestionProps> = ({
+  uid,
+  onGetQuestion,
+  onRemoveQuestion,
+}) => {
   const classes = useStyles();
+  const {
+    question,
+    onChangeQuestion,
+    typeQuestion,
+    onChangeTypeQuestion,
+    answers,
+    onAddAnswer,
+    onRemoveAnswer,
+    onChangeAnswer,
+  } = useQuestionForm(uid, onGetQuestion);
+
   return (
     <Box className={classes.root}>
       <Grid container spacing={2}>
@@ -52,9 +46,10 @@ const Question: FC<QuestionProps> = ({ onRemoveQuestion }) => {
               label="Preguta"
               variant="outlined"
               fullWidth
-              value="Pregunta numero 1"
+              value={question}
+              onChange={onChangeQuestion}
             />
-            <IconButton onClick={onRemoveQuestion}>
+            <IconButton onClick={() => onRemoveQuestion(uid)}>
               <DeleteIcon />
             </IconButton>
           </Box>
@@ -63,7 +58,7 @@ const Question: FC<QuestionProps> = ({ onRemoveQuestion }) => {
           <RadioGroup
             className={classes.typeQuestion}
             value={typeQuestion}
-            onChange={onChageTypeQuestion}
+            onChange={onChangeTypeQuestion}
           >
             <FormControlLabel
               value="open_question"
@@ -78,9 +73,15 @@ const Question: FC<QuestionProps> = ({ onRemoveQuestion }) => {
           </RadioGroup>
         </Grid>
         {typeQuestion === 'multiple_choice' &&
-          answers.map(({ uid }) => (
+          answers.map(({ uid, answer }) => (
             <Grid item xs={12}>
-              <Answer onRemoveAnswer={() => onRemoveAnswer(uid)} />
+              <Answer
+                answer={answer}
+                onChangeAnswer={(_event: any) =>
+                  onChangeAnswer(uid, _event.target.value)
+                }
+                onRemoveAnswer={() => onRemoveAnswer(uid)}
+              />
             </Grid>
           ))}
         {typeQuestion === 'multiple_choice' && (

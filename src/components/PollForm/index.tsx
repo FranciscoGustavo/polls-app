@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { FC } from 'react';
 import {
   Grid,
   Card,
@@ -9,22 +9,24 @@ import {
   TextField,
   Button,
 } from '@material-ui/core';
-import { v4 as uuidv4 } from 'uuid';
+import { usePollForm, usePollSave } from '../../hooks';
 import Question from '../Question';
 
 const PollForm: FC = () => {
-  const [title] = useState('');
-  const [questions, setQuestions] = useState([{ uid: uuidv4(), question: '' }]);
+  const {
+    title,
+    onChangeTitle,
+    questions,
+    onAddQuestion,
+    onRemoveQuestion,
+    onGetQuestion,
+    disabledButtons,
+  } = usePollForm();
 
-  const onAddQuestion = () => {
-    setQuestions([...questions, { uid: uuidv4(), question: '' }]);
-  };
+  const { savePoll, isSaving, isSaved, error } = usePollSave();
 
-  const onRemoveQuestion = (uid: string) => {
-    const filteredQuestions = questions.filter(
-      ({ uid: uidQuestion }) => uidQuestion !== uid
-    );
-    setQuestions(filteredQuestions);
+  const onSavePoll = () => {
+    savePoll({ title, questions });
   };
 
   return (
@@ -41,21 +43,35 @@ const PollForm: FC = () => {
               variant="outlined"
               fullWidth
               value={title}
+              onChange={onChangeTitle}
             />
           </Grid>
           {questions.map(({ uid }) => (
             <Grid key={uid} item xs={12}>
-              <Question onRemoveQuestion={() => onRemoveQuestion(uid)} />
+              <Question
+                uid={uid}
+                onGetQuestion={onGetQuestion}
+                onRemoveQuestion={onRemoveQuestion}
+              />
             </Grid>
           ))}
         </Grid>
       </CardContent>
       <Divider />
       <CardActions>
-        <Button color="primary" onClick={onAddQuestion}>
+        <Button
+          color="primary"
+          onClick={onAddQuestion}
+          disabled={disabledButtons}
+        >
           Agregar Pregunta
         </Button>
-        <Button variant="contained" color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={disabledButtons}
+          onClick={onSavePoll}
+        >
           Guardar
         </Button>
       </CardActions>
