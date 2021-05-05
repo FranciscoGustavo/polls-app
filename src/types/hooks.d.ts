@@ -44,3 +44,13 @@ type UsePollSaveHookReturnedProps = {
 };
 
 type UsePollSaveHook = (poll?: Poll) => UsePollSaveHookReturnedProps;
+
+/**
+ * usePolls
+ */
+type UsePollsHook = () => Polls;
+
+/**
+ * useSetupData
+ */
+type UseSetupDataHook = () => void;

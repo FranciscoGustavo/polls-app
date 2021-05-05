@@ -12,12 +12,17 @@ import {
 } from '@material-ui/core';
 import { useStyles } from './styles';
 
-const PollCard: FC = () => {
+type PollCardProps = {
+  uid: string;
+  title: string;
+};
+
+const PollCard: FC<PollCardProps> = ({ uid, title }) => {
   const classes = useStyles();
   return (
     <Box className={classes.root}>
       <Card>
-        <CardHeader title="Entrevista 1" />
+        <CardHeader title={title} />
         <CardContent>
           <Box className={classes.containerProgress}>
             <Box className={classes.containerLinearProgress}>
@@ -31,7 +36,7 @@ const PollCard: FC = () => {
           </Box>
         </CardContent>
         <CardActions>
-          <Button component={Link} to="/polls/5/answer">
+          <Button component={Link} to={`/polls/${uid}/answer`}>
             Contestar
           </Button>
         </CardActions>

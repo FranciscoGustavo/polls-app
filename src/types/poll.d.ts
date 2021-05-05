@@ -15,3 +15,4 @@ type Poll = {
   title: string;
   questions: Questions;
 };
+type Polls = Array<Poll & { uid?: string }>;
