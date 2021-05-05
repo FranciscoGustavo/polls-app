@@ -1,21 +1,24 @@
 import React, { FC } from 'react';
 import { Box, Container, Grid, Typography } from '@material-ui/core';
-import { PollCard } from '../../components';
+import { Layout, PollCard } from '../../components';
+import { useStyles } from './styles';
 
 const Home: FC = () => {
+  const classes = useStyles();
   return (
-    <Box>
-      <Container>
-        <Typography variant="h1">Entrevistas</Typography>
-        <Grid container spacing={2}>
-          {new Array(5).fill('').map(() => (
-            <Grid item xs={12}>
-              <PollCard />
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </Box>
+    <Layout>
+      <Box className={classes.root}>
+        <Container>
+          <Grid container spacing={2}>
+            {new Array(5).fill('').map(() => (
+              <Grid item xs={12}>
+                <PollCard />
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+    </Layout>
   );
 };
 
