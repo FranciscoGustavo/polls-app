@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { useEffect, FC } from 'react';
 import {
   Box,
   Button,
@@ -11,7 +11,7 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 import Congratulations from '../Congratulations';
-import { useAnswerQuestions } from '../../hooks';
+import { useAnswerQuestions, usePollAnsweredSave } from '../../hooks';
 import { useStyles } from './styles';
 
 type AnsweringQuestionsProps = {
@@ -27,6 +27,12 @@ const AnsweringQuestions: FC<AnsweringQuestionsProps> = ({ poll }) => {
     disabledNextQuestion,
     finishedPoll,
   } = useAnswerQuestions(poll);
+
+  const { savePollAnswered } = usePollAnsweredSave();
+
+  useEffect(() => {
+    savePollAnswered(poll, answers);
+  }, [finishedPoll]);
 
   if (finishedPoll) return <Congratulations />;
   return (

@@ -11,7 +11,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
     maxWidth: theme.breakpoints.width('md'),
     margin: 'auto',
     '& > *': {
-      margin: theme.spacing(2, 0)
-    }
+      margin: theme.spacing(2, 0),
+    },
   },
 }));

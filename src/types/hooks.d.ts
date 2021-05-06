@@ -48,7 +48,10 @@ type UsePollSaveHook = (poll?: Poll) => UsePollSaveHookReturnedProps;
 /**
  * usePolls
  */
-type UsePollsHook = () => Polls;
+type UsePollsHookReturnedProps = Array<
+  Poll & { uid: string; isAnswered: boolean }
+>;
+type UsePollsHook = () => UsePollsHookReturnedProps;
 
 /**
  * useSetupData
@@ -80,3 +83,17 @@ type UseAnswerQuestionsHookReturnedProps = {
 type UseAnswerQuestionsHook = (
   poll: Poll
 ) => UseAnswerQuestionsHookReturnedProps;
+
+/**
+ * usePollAnsweredSave
+ */
+type UsePollAnsweredSaveHookReturnedProps = {
+  savePollAnswered: (
+    poll: Poll & { uid: string },
+    answers: AnswersByUser
+  ) => void;
+  isSaved: boolean;
+  isSaving: boolean;
+  error: boolean;
+};
+type UsePollAnsweredSaveHook = () => UsePollAnsweredSaveHookReturnedProps;

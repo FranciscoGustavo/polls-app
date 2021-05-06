@@ -1,8 +1,8 @@
-type ExistPolls = () => Polls;
-export const validateExistPollsAndGet: ExistPolls = () => {
-  const existPolls = localStorage.getItem('polls');
-  if (!existPolls) localStorage.setItem('polls', JSON.stringify([]));
+type ExistPolls = (type?: 'pollsAnswered' | 'polls') => Polls;
+export const validateExistPollsAndGet: ExistPolls = (type = 'polls') => {
+  const existPolls = localStorage.getItem(type);
+  if (!existPolls) localStorage.setItem(type, JSON.stringify([]));
 
-  const allPolls: Polls = JSON.parse(localStorage.getItem('polls') as string);
+  const allPolls: Polls = JSON.parse(localStorage.getItem(type) as string);
   return allPolls;
 };

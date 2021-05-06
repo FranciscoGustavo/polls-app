@@ -5,3 +5,4 @@ export { default as useSetupData } from './useSetupData';
 export { default as usePolls } from './usePolls';
 export { default as usePoll } from './usePoll';
 export { default as useAnswerQuestions } from './useAnswerQuestions';
+export { default as usePollAnsweredSave } from './usePollAnsweredSave';

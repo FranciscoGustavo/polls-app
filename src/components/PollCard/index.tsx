@@ -15,9 +15,10 @@ import { useStyles } from './styles';
 type PollCardProps = {
   uid: string;
   title: string;
+  isAnswered: boolean;
 };
 
-const PollCard: FC<PollCardProps> = ({ uid, title }) => {
+const PollCard: FC<PollCardProps> = ({ uid, title, isAnswered }) => {
   const classes = useStyles();
   return (
     <Box className={classes.root}>
@@ -26,11 +27,14 @@ const PollCard: FC<PollCardProps> = ({ uid, title }) => {
         <CardContent>
           <Box className={classes.containerProgress}>
             <Box className={classes.containerLinearProgress}>
-              <LinearProgress variant="determinate" value={50} />
+              <LinearProgress
+                variant="determinate"
+                value={isAnswered ? 100 : 0}
+              />
             </Box>
             <Box className={classes.containerLabelProgress}>
               <Typography variant="body2" color="textSecondary">
-                30 %
+                {isAnswered ? '100 %' : '0 %'}
               </Typography>
             </Box>
           </Box>

@@ -26,3 +26,13 @@ export const savePoll: SavePoll = async (poll) => {
   allPolls.push({ uid: uuidv4(), ...poll });
   localStorage.setItem('polls', JSON.stringify(allPolls));
 };
+
+type SavePollAnswered = (poll: Poll) => Promise<void>;
+export const savePollAnswered: SavePollAnswered = async (poll) => {
+  /**
+   * Here can be make a http request to save data in one api
+   */
+  const allPolls = validateExistPollsAndGet('pollsAnswered');
+  allPolls.push({ uid: uuidv4(), ...poll });
+  localStorage.setItem('pollsAnswered', JSON.stringify(allPolls));
+};
