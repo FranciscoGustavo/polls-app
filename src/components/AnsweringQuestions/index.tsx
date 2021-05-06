@@ -31,7 +31,9 @@ const AnsweringQuestions: FC<AnsweringQuestionsProps> = ({ poll }) => {
   const { savePollAnswered } = usePollAnsweredSave();
 
   useEffect(() => {
-    savePollAnswered(poll, answers);
+    if (finishedPoll) {
+      savePollAnswered(poll, answers);
+    }
   }, [finishedPoll]);
 
   if (finishedPoll) return <Congratulations />;
