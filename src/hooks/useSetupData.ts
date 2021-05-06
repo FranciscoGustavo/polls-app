@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 const useSetupData: UseSetupDataHook = () => {
-  const generatedPolls: Polls = Array(5)
+  const generatedPolls: Polls = Array(2)
     .fill({})
     .map((item, idx) => ({
       uid: uuidv4(),
@@ -15,7 +15,7 @@ const useSetupData: UseSetupDataHook = () => {
           answers:
             idx % 2 === 0
               ? []
-              : Array(5)
+              : Array(4)
                   .fill({})
                   .map((subitem, idx) => ({
                     uid: uuidv4(),
