@@ -8,9 +8,15 @@ import {
   Divider,
   TextField,
   Button,
+  Snackbar,
 } from '@material-ui/core';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { usePollForm, usePollSave } from '../../hooks';
 import Question from '../Question';
+
+const Alert = (props: AlertProps) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
 
 const PollForm: FC = () => {
   const {
@@ -23,7 +29,7 @@ const PollForm: FC = () => {
     disabledButtons,
   } = usePollForm();
 
-  const { savePoll, isSaving, isSaved, error } = usePollSave();
+  const { savePoll, isSaving, isSaved, error, resetValues } = usePollSave();
 
   const onSavePoll = () => {
     savePoll({ title, questions });
@@ -75,6 +81,20 @@ const PollForm: FC = () => {
           Guardar
         </Button>
       </CardActions>
+      <Snackbar
+        open={isSaving || isSaved || error}
+        autoHideDuration={6000}
+        onClose={resetValues}
+      >
+        <Alert
+          severity={error ? 'error' : isSaving ? 'info' : 'success'}
+          onClose={resetValues}
+        >
+          {isSaving && 'Guardando'}
+          {isSaved && 'Encuesta guardada'}
+          {error && 'Upss algo salio mal'}
+        </Alert>
+      </Snackbar>
     </Card>
   );
 };

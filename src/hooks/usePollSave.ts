@@ -11,6 +11,12 @@ const usePollSave: UsePollSaveHook = (currentPoll) => {
     setPoll(poll);
   };
 
+  const resetValues = () => {
+    setIsSaved(false);
+    setError(false);
+    setIsSaving(false);
+  };
+
   useEffect(() => {
     if (poll) {
       setIsSaving(false);
@@ -26,6 +32,7 @@ const usePollSave: UsePollSaveHook = (currentPoll) => {
     isSaved,
     isSaving,
     error,
+    resetValues,
   };
 };
 

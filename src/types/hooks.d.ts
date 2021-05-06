@@ -41,6 +41,7 @@ type UsePollSaveHookReturnedProps = {
   isSaved: boolean;
   isSaving: boolean;
   error: boolean;
+  resetValues: () => void;
 };
 
 type UsePollSaveHook = (poll?: Poll) => UsePollSaveHookReturnedProps;

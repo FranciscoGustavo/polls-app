@@ -35,7 +35,6 @@ const usePollForm: UsePollFormHook = () => {
       return question;
     });
     setQuestions(newQuestions);
-    console.log(question);
   };
 
   return {

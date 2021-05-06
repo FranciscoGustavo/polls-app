@@ -9,8 +9,6 @@ export const findOnePoll: FindOnePoll = async (uid) => {
   const allPolls = validateExistPollsAndGet();
   const findedPoll = allPolls.find(({ uid: uidPoll }) => uidPoll === uid);
 
-  console.log(findedPoll);
-
   if (!findedPoll) {
     throw new Error();
   }
