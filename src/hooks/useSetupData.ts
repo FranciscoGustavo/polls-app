@@ -10,7 +10,7 @@ const useSetupData: UseSetupDataHook = () => {
         .fill({})
         .map((subitem, idx) => ({
           uid: uuidv4(),
-          question: `pregunta ${idx + 1}`,
+          question: `¿Pregunta número ${idx + 1} con signo de interrogación?`,
           typeQuestion: idx % 2 === 0 ? 'open_question' : 'multiple_choice',
           answers:
             idx % 2 === 0

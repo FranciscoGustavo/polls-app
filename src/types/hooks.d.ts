@@ -54,3 +54,29 @@ type UsePollsHook = () => Polls;
  * useSetupData
  */
 type UseSetupDataHook = () => void;
+
+/**
+ * usePoll
+ */
+type UsePollHookReturnedProps = {
+  poll: Poll & { uid: string };
+  isLoading: boolean;
+  error: boolean;
+};
+type UsePollHook = (uid: string) => UsePollHookReturnedProps;
+
+/**
+ *
+ */
+type AnswersByUser = { [key: string]: string };
+type UseAnswerQuestionsHookReturnedProps = {
+  question: Question;
+  answers: AnswersByUser;
+  onChangeInputAnswer: (_event: any) => void;
+  onNextQuestion: () => void;
+  disabledNextQuestion: boolean;
+  finishedPoll: boolean;
+};
+type UseAnswerQuestionsHook = (
+  poll: Poll
+) => UseAnswerQuestionsHookReturnedProps;

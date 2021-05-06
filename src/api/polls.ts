@@ -1,6 +1,22 @@
 import { v4 as uuidv4 } from 'uuid';
 import { validateExistPollsAndGet } from '../utils';
 
+type FindOnePoll = (uid: string) => Promise<Poll & { uid: string }> | any;
+export const findOnePoll: FindOnePoll = async (uid) => {
+  /**
+   * Here can be make a http request to save data in one api
+   */
+  const allPolls = validateExistPollsAndGet();
+  const findedPoll = allPolls.find(({ uid: uidPoll }) => uidPoll === uid);
+
+  console.log(findedPoll);
+
+  if (!findedPoll) {
+    throw new Error();
+  }
+  return findedPoll;
+};
+
 type SavePoll = (poll: Poll) => Promise<void>;
 export const savePoll: SavePoll = async (poll) => {
   /**
