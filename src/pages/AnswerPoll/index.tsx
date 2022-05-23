@@ -13,7 +13,7 @@ import { useStyles } from './styles';
 const AnswerPoll: FC = () => {
   const classes = useStyles();
   const params = useParams<{ uid: string }>();
-  const { poll, isLoading, error } = usePoll(params.uid);
+  const { poll, isLoading, error } = usePoll(params.uid || '');
 
   return (
     <Layout>

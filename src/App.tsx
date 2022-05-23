@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSetupData } from './hooks';
 import ROUTER from './router';
 import './App.css';
@@ -9,11 +9,11 @@ function App() {
   return (
     <div className="app">
       <Router>
-        <Switch>
+        <Routes>
           {ROUTER.map((route, idx) => (
             <Route {...route} />
           ))}
-        </Switch>
+        </Routes>
       </Router>
     </div>
   );
