@@ -1,9 +1,9 @@
 import { Home, NewPoll, AnswerPoll } from '../pages';
 
 const ROUTER = [
-  { exact: true, path: '/', component: Home },
-  { exact: true, path: '/polls/new', component: NewPoll },
-  { exact: true, path: '/polls/:uid/answer', component: AnswerPoll },
+  { exact: true, path: '/', Component: Home },
+  { exact: true, path: '/polls/new', Component: NewPoll },
+  { exact: true, path: '/polls/:uid/answer', Component: AnswerPoll },
 ];
 
 export default ROUTER;

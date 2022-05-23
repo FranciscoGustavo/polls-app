@@ -1,13 +1,11 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Typography, Button } from '@material-ui/core';
-import { useStyles } from './styles';
+import { Box, Typography, Button } from '@mui/material';
+import { BoxRoot } from './styles';
 
 const Congratulations: FC = () => {
-  const classes = useStyles();
-
   return (
-    <Box className={classes.root}>
+    <BoxRoot>
       <Box>
         <Typography variant="h2">¡Felicidades!</Typography>
       </Box>
@@ -19,7 +17,7 @@ const Congratulations: FC = () => {
           Salir
         </Button>
       </Box>
-    </Box>
+    </BoxRoot>
   );
 };
 

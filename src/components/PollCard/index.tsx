@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Box,
   Card,
   CardHeader,
   CardContent,
@@ -9,8 +8,8 @@ import {
   Typography,
   Button,
   LinearProgress,
-} from '@material-ui/core';
-import { useStyles } from './styles';
+} from '@mui/material';
+import { BoxRoot, ContainerProgress, ContainerLinearProgress, ContainerLabelProgress  } from './styles';
 
 type PollCardProps = {
   uid: string;
@@ -19,25 +18,24 @@ type PollCardProps = {
 };
 
 const PollCard: FC<PollCardProps> = ({ uid, title, isAnswered }) => {
-  const classes = useStyles();
   return (
-    <Box className={classes.root}>
+    <BoxRoot>
       <Card>
         <CardHeader title={title} />
         <CardContent>
-          <Box className={classes.containerProgress}>
-            <Box className={classes.containerLinearProgress}>
+          <ContainerProgress>
+            <ContainerLinearProgress>
               <LinearProgress
                 variant="determinate"
                 value={isAnswered ? 100 : 0}
               />
-            </Box>
-            <Box className={classes.containerLabelProgress}>
+            </ContainerLinearProgress>
+            <ContainerLabelProgress>
               <Typography variant="body2" color="textSecondary">
                 {isAnswered ? '100 %' : '0 %'}
               </Typography>
-            </Box>
-          </Box>
+            </ContainerLabelProgress>
+          </ContainerProgress>
         </CardContent>
         <CardActions>
           <Button component={Link} to={`/polls/${uid}/answer`}>
@@ -45,7 +43,7 @@ const PollCard: FC<PollCardProps> = ({ uid, title, isAnswered }) => {
           </Button>
         </CardActions>
       </Card>
-    </Box>
+    </BoxRoot>
   );
 };
 

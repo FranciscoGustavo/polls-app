@@ -1,15 +1,15 @@
-import React, { FC } from 'react';
-import { Box, Container, Grid } from '@material-ui/core';
+import { FC } from 'react';
+import { Container, Grid } from '@mui/material';
 import { usePolls } from '../../hooks';
 import { Layout, PollCard } from '../../components';
-import { useStyles } from './styles';
+import { BoxRoot } from './styles';
 
 const Home: FC = () => {
-  const classes = useStyles();
   const polls = usePolls();
+
   return (
     <Layout>
-      <Box className={classes.root}>
+      <BoxRoot>
         <Container>
           <Grid container spacing={2}>
             {polls.map(({ uid, title, isAnswered }) => (
@@ -23,7 +23,7 @@ const Home: FC = () => {
             ))}
           </Grid>
         </Container>
-      </Box>
+      </BoxRoot>
     </Layout>
   );
 };

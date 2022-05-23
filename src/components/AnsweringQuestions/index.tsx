@@ -1,6 +1,5 @@
 import React, { useEffect, FC } from 'react';
 import {
-  Box,
   Button,
   Typography,
   TextField,
@@ -9,16 +8,16 @@ import {
   RadioGroup,
   Radio,
   FormControlLabel,
-} from '@material-ui/core';
+} from '@mui/material';
 import Congratulations from '../Congratulations';
 import { useAnswerQuestions, usePollAnsweredSave } from '../../hooks';
-import { useStyles } from './styles';
+import { BoxRoot, ContainerQuestion, ContainerAnswer, ContainerButtonNextQuestion } from './styles';
 
 type AnsweringQuestionsProps = {
   poll: Poll & { uid: string };
 };
 const AnsweringQuestions: FC<AnsweringQuestionsProps> = ({ poll }) => {
-  const classes = useStyles();
+
   const {
     question,
     answers,
@@ -38,11 +37,11 @@ const AnsweringQuestions: FC<AnsweringQuestionsProps> = ({ poll }) => {
 
   if (finishedPoll) return <Congratulations />;
   return (
-    <Box className={classes.root}>
-      <Box className={classes.containerQuestion}>
+    <BoxRoot>
+      <ContainerQuestion>
         <Typography variant="h4">{question.question}</Typography>
-      </Box>
-      <Box className={classes.containerAnswer}>
+      </ContainerQuestion>
+      <ContainerAnswer>
         {question.typeQuestion === 'open_question' && (
           <TextField
             fullWidth
@@ -68,8 +67,8 @@ const AnsweringQuestions: FC<AnsweringQuestionsProps> = ({ poll }) => {
             </RadioGroup>
           </FormControl>
         )}
-      </Box>
-      <Box className={classes.containerButtonNextQuestion}>
+      </ContainerAnswer>
+      <ContainerButtonNextQuestion>
         <Button
           variant="contained"
           color="primary"
@@ -78,8 +77,8 @@ const AnsweringQuestions: FC<AnsweringQuestionsProps> = ({ poll }) => {
         >
           Siguiente
         </Button>
-      </Box>
-    </Box>
+      </ContainerButtonNextQuestion>
+    </BoxRoot>
   );
 };
 

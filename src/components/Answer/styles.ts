@@ -1,6 +1,6 @@
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Box, styled } from '@mui/material';
 
-export const useStyles = makeStyles((theme: Theme) => ({
+export const BoxRoot = styled(Box)(({ theme }) => ({
   root: {
     display: 'flex',
     maxWidth: '400px',

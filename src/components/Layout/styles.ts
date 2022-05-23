@@ -1,15 +1,15 @@
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Box, styled } from '@mui/material';
 
-export const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    position: 'absolute',
-    top: '0',
-    left: '0',
-    width: '100vw',
-    height: '100vh',
-    overflow: 'hidden',
-  },
-  wrapper: {
+export const BoxRoot = styled(Box)(({theme}) => ({
+  position: 'absolute',
+  top: '0',
+  left: '0',
+  width: '100vw',
+  height: '100vh',
+  overflow: 'hidden',
+}));
+
+export const Wrapper = styled(Box)(({theme}) => ({
     width: '100%',
     height: '100%',
     paddingTop: '56px',
@@ -17,10 +17,11 @@ export const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up('sm')]: {
       paddingTop: '64px',
     },
-  },
-  content: {
+}));
+
+
+export const Content = styled(Box)(({theme}) => ({
     width: '100%',
     height: '100%',
     overflow: 'hidden',
-  },
 }));

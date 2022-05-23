@@ -1,7 +1,6 @@
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { styled } from '@mui/material';
 
-export const useStyles = makeStyles((theme: Theme) => ({
-  nav: {
+export const Nav = styled('div')(({theme}) => ({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -9,5 +8,4 @@ export const useStyles = makeStyles((theme: Theme) => ({
     '& > *': {
       marginLeft: theme.spacing(1),
     },
-  },
 }));

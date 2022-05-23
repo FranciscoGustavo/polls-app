@@ -1,20 +1,21 @@
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Box, styled } from '@mui/material';
 
-export const useStyles = makeStyles((theme: Theme) => ({
-  root: {
+export const BoxRoot = styled(Box)(({theme}) => ({
     width: '100%',
     maxWidth: '600px',
     margin: 'auto',
-  },
-  containerProgress: {
+}));
+
+export const ContainerProgress = styled(Box)(({theme}) => ({
     display: 'flex',
     alignItems: 'center',
-  },
-  containerLinearProgress: {
+}));
+
+export const ContainerLinearProgress = styled(Box)(({theme}) => ({
     width: '100%',
     marginRight: theme.spacing(1),
-  },
-  containerLabelProgress: {
+}));
+
+export const ContainerLabelProgress = styled(Box)(({theme}) => ({
     minWidth: 35,
-  },
 }));

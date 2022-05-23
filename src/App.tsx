@@ -1,8 +1,6 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSetupData } from './hooks';
 import ROUTER from './router';
-import './App.css';
 
 function App() {
   useSetupData();
@@ -11,7 +9,7 @@ function App() {
       <Router>
         <Routes>
           {ROUTER.map((route, idx) => (
-            <Route {...route} />
+            <Route path={route.path} element={<route.Component />} />
           ))}
         </Routes>
       </Router>

@@ -1,18 +1,16 @@
 import React, { FC } from 'react';
 import {
-  Box,
   Grid,
   TextField,
   Button,
   IconButton,
-  RadioGroup,
   Radio,
   FormControlLabel,
-} from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useQuestionForm } from '../../hooks';
 import Answer from '../Answer';
-import { useStyles } from './styles';
+import { BoxRoot, Title, RadioGroupForm } from './styles';
 
 type QuestionProps = {
   uid: string;
@@ -24,7 +22,6 @@ const Question: FC<QuestionProps> = ({
   onGetQuestion,
   onRemoveQuestion,
 }) => {
-  const classes = useStyles();
   const {
     question,
     onChangeQuestion,
@@ -37,10 +34,10 @@ const Question: FC<QuestionProps> = ({
   } = useQuestionForm(uid, onGetQuestion);
 
   return (
-    <Box className={classes.root}>
+    <BoxRoot>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Box className={classes.containerTitle}>
+          <Title>
             <TextField
               id="outlined-basic"
               label="Preguta"
@@ -52,11 +49,10 @@ const Question: FC<QuestionProps> = ({
             <IconButton onClick={() => onRemoveQuestion(uid)}>
               <DeleteIcon />
             </IconButton>
-          </Box>
+          </Title>
         </Grid>
         <Grid item xs={12}>
-          <RadioGroup
-            className={classes.typeQuestion}
+          <RadioGroupForm
             value={typeQuestion}
             onChange={onChangeTypeQuestion}
           >
@@ -70,7 +66,7 @@ const Question: FC<QuestionProps> = ({
               control={<Radio />}
               label="Selección multiple"
             />
-          </RadioGroup>
+          </RadioGroupForm>
         </Grid>
         {typeQuestion === 'multiple_choice' &&
           answers.map(({ uid, answer }) => (
@@ -92,7 +88,7 @@ const Question: FC<QuestionProps> = ({
           </Grid>
         )}
       </Grid>
-    </Box>
+    </BoxRoot>
   );
 };
 

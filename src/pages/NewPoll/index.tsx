@@ -1,17 +1,16 @@
 import React, { FC } from 'react';
-import { Box, Container } from '@material-ui/core';
+import { Container } from '@mui/material';
 import { Layout, PollForm } from '../../components';
-import { useStyles } from './styles';
+import { BoxRoot } from './styles';
 
 const NewPoll: FC = () => {
-  const classes = useStyles();
   return (
     <Layout>
-      <Box className={classes.root}>
+      <BoxRoot>
         <Container maxWidth="md">
           <PollForm />
         </Container>
-      </Box>
+      </BoxRoot>
     </Layout>
   );
 };

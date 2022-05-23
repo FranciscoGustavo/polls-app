@@ -1,15 +1,15 @@
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Box, Container as MuiContainer, styled } from '@mui/material';
 
-export const useStyles = makeStyles((theme: Theme) => ({
-  root: {
+export const BoxRoot = styled(Box)(({ theme }) => ({
     width: '100%',
     height: '100%',
     padding: theme.spacing(4, 0),
     overflow: 'hidden',
-  },
-  container: {
-    width: '100%',
-    height: '100%',
-    overflowY: 'auto',
-  },
+  
+}));
+
+export const Container = styled(MuiContainer)(({ theme }) => ({
+  width: '100%',
+  height: '100%',
+  overflowY: 'auto',
 }));

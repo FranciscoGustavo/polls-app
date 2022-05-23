@@ -9,8 +9,8 @@ import {
   TextField,
   Button,
   Snackbar,
-} from '@material-ui/core';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+} from '@mui/material';
+import MuiAlert, { AlertProps } from '@mui/lab/Alert';
 import { usePollForm, usePollSave } from '../../hooks';
 import Question from '../Question';
 

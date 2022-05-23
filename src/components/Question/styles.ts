@@ -1,17 +1,18 @@
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Box, styled } from '@mui/material';
+import RadioGroup, { RadioGroupProps } from '@mui/material/RadioGroup';
 
-export const useStyles = makeStyles((theme: Theme) => ({
-  root: {
+export const BoxRoot = styled(Box)(({theme}) => ({
     borderTopStyle: 'solid',
     borderTopWidth: '1px',
     borderTopColor: 'gray',
     paddingTop: theme.spacing(4),
-  },
-  containerTitle: {
+}));
+
+export const Title = styled(Box)(() => ({
     display: 'flex',
-  },
-  typeQuestion: {
+}));
+
+export const RadioGroupForm = styled(RadioGroup)<RadioGroupProps>(() => ({
     display: 'flex',
     flexDirection: 'row',
-  },
 }));

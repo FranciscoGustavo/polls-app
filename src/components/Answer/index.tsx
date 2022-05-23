@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
-import { Box, TextField, IconButton } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { useStyles } from './styles';
+import { FC } from 'react';
+import { TextField, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { BoxRoot } from './styles';
 
 type AnswerProps = {
   answer: string;
@@ -13,9 +13,8 @@ const Answer: FC<AnswerProps> = ({
   onChangeAnswer,
   onRemoveAnswer,
 }) => {
-  const classes = useStyles();
   return (
-    <Box className={classes.root}>
+    <BoxRoot>
       <TextField
         label="Respuesta"
         variant="outlined"
@@ -26,7 +25,7 @@ const Answer: FC<AnswerProps> = ({
       <IconButton onClick={onRemoveAnswer}>
         <DeleteIcon />
       </IconButton>
-    </Box>
+    </BoxRoot>
   );
 };
 
