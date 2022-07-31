@@ -1,18 +1,27 @@
 type Answer = {
-  uid: string;
+  uuid: string;
   answer: string;
 };
-type Answers = Array<Answer>;
+
+type Answers = Answer[];
+
 type TypeQuestion = 'open_question' | 'multiple_choice';
+
 type Question = {
-  uid: string;
+  uuid: string;
   question: string;
   typeQuestion: TypeQuestion;
   answers: Answers;
 };
-type Questions = Array<Question>;
+
+type Questions = Question[];
+
 type Poll = {
+  uuid: string
   title: string;
   questions: Questions;
 };
-type Polls = Array<Poll & { uid?: string }>;
+
+type Polls = Poll[];
+
+type CretaePoll = Omit<Poll, 'uuid'>

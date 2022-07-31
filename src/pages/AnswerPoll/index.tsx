@@ -9,8 +9,8 @@ import { Layout, AnsweringQuestions } from '../../components';
 import { BoxRoot, Container } from './styles';
 
 const AnswerPoll: FC = () => {
-  const params = useParams<{ uid: string }>();
-  const { poll, isLoading, error } = usePoll(params.uid || '');
+  const params = useParams<{ uuid: string }>();
+  const { poll, isLoading, error } = usePoll(params.uuid || '');
 
   return (
     <Layout>

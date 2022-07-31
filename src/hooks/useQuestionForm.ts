@@ -9,7 +9,7 @@ const useQuestionForm: UseQuestionFormHook = (uidQuestion, onGetQuestion) => {
   const [answers, setAnswers] = useState<Answers>([]);
 
   const createAnswer: CreateAnswer = () => ({
-    uid: uuidv4(),
+    uuid: uuidv4(),
     answer: '',
   });
 
@@ -32,22 +32,22 @@ const useQuestionForm: UseQuestionFormHook = (uidQuestion, onGetQuestion) => {
 
   const onRemoveAnswer = (uid: string) => {
     const filteredAnswer = answers.filter(
-      ({ uid: uidAnswer }) => uidAnswer !== uid
+      ({ uuid: uidAnswer }) => uidAnswer !== uid
     );
     setAnswers(filteredAnswer);
   };
 
-  const onChangeAnswer = (uid: string, value: string) => {
+  const onChangeAnswer = (uuid: string, value: string) => {
     const newAnswers = answers.map((answer) => {
-      const { uid: uidAnswer } = answer;
-      if (uid !== uidAnswer) return answer;
-      return { uid, answer: value };
+      const { uuid: uuidAnswer } = answer;
+      if (uuid !== uuidAnswer) return answer;
+      return { uuid, answer: value };
     });
     setAnswers(newAnswers);
   };
 
   useEffect(() => {
-    onGetQuestion({ uid: uidQuestion, question, typeQuestion, answers });
+    onGetQuestion({ uuid: uidQuestion, question, typeQuestion, answers });
   }, [question, typeQuestion, answers]);
 
   return {

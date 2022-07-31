@@ -5,24 +5,24 @@ const usePollAnsweredSave: UsePollAnsweredSaveHook = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [error, setError] = useState(false);
-  const [poll, setPoll] = useState<(Poll & { uid: string }) | undefined>(
+  const [poll, setPoll] = useState<Poll | undefined>(
     undefined
   );
 
   const savePollAnswered = (
-    currentPoll: Poll & { uid: string },
+    currentPoll: Poll,
     answers: AnswersByUser
   ) => {
-    const { uid, title, questions } = currentPoll;
-    const newQuestions = questions.map(({ uid, ...rest }) => {
+    const { uuid, title, questions } = currentPoll;
+    const newQuestions = questions.map(({ uuid, ...rest }) => {
       return {
-        uid,
+        uuid,
         ...rest,
-        userAnswer: answers[uid],
+        userAnswer: answers[uuid],
       };
     });
     setPoll({
-      uid,
+      uuid,
       title,
       questions: newQuestions,
     });

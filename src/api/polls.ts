@@ -1,36 +1,28 @@
-import { v4 as uuidv4 } from 'uuid';
-import { validateExistPollsAndGet } from '../utils';
+import axios from 'axios'
 
-type FindOnePoll = (uid: string) => Promise<Poll & { uid: string }> | any;
-export const findOnePoll: FindOnePoll = async (uid) => {
-  /**
-   * Here can be make a http request to save data in one api
-   */
-  const allPolls = validateExistPollsAndGet();
-  const findedPoll = allPolls.find(({ uid: uidPoll }) => uidPoll === uid);
+const api = axios.create({ baseURL: 'http://localhost:5000/polls-app/polls' })
 
-  if (!findedPoll) {
-    throw new Error();
-  }
-  return findedPoll;
+export const findAllPolls = async () => {
+  const { data } = await api.get('/')
+
+  return data.body
+}
+
+export const findOnePoll = async (uuid: string) => {
+  const { data } = await api.get(`/${uuid}`)
+
+  return data.body
 };
 
-type SavePoll = (poll: Poll) => Promise<void>;
+type SavePoll = (poll: CretaePoll) => Promise<void>;
 export const savePoll: SavePoll = async (poll) => {
-  /**
-   * Here can be make a http request to save data in one api
-   */
-  const allPolls = validateExistPollsAndGet();
-  allPolls.push({ uid: uuidv4(), ...poll });
-  localStorage.setItem('polls', JSON.stringify(allPolls));
+  const response = await api.post('/', poll)
+
+  console.log(response)
+  
 };
 
 type SavePollAnswered = (poll: Poll) => Promise<void>;
 export const savePollAnswered: SavePollAnswered = async (poll) => {
-  /**
-   * Here can be make a http request to save data in one api
-   */
-  const allPolls = validateExistPollsAndGet('pollsAnswered');
-  allPolls.push({ uid: uuidv4(), ...poll });
-  localStorage.setItem('pollsAnswered', JSON.stringify(allPolls));
+
 };

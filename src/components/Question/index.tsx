@@ -69,14 +69,14 @@ const Question: FC<QuestionProps> = ({
           </RadioGroupForm>
         </Grid>
         {typeQuestion === 'multiple_choice' &&
-          answers.map(({ uid, answer }) => (
+          answers.map(({ uuid, answer }) => (
             <Grid item xs={12}>
               <Answer
                 answer={answer}
                 onChangeAnswer={(_event: any) =>
-                  onChangeAnswer(uid, _event.target.value)
+                  onChangeAnswer(uuid, _event.target.value)
                 }
-                onRemoveAnswer={() => onRemoveAnswer(uid)}
+                onRemoveAnswer={() => onRemoveAnswer(uuid)}
               />
             </Grid>
           ))}

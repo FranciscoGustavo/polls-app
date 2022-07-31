@@ -5,9 +5,9 @@ const usePollSave: UsePollSaveHook = (currentPoll) => {
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [error, setError] = useState(false);
-  const [poll, setPoll] = useState<Poll | undefined>(currentPoll);
+  const [poll, setPoll] = useState<CretaePoll | undefined>(currentPoll);
 
-  const savePoll = (poll: Poll) => {
+  const savePoll = (poll: CretaePoll) => {
     setPoll(poll);
   };
 

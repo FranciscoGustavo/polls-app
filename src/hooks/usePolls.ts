@@ -1,19 +1,15 @@
-import { validateExistPollsAndGet } from '../utils';
+import { useEffect, useState } from 'react'
+import { findAllPolls } from '../api/polls'
 
 const usePolls: UsePollsHook = () => {
-  const allPolls = validateExistPollsAndGet();
-  const allPollsAnswered = validateExistPollsAndGet('pollsAnswered');
+  const [allPolls, setAllPolls] = useState([])
 
-  const readyPolls = allPolls.map((poll) => {
-    const isAnswered = allPollsAnswered.find(({ uid }) => uid === poll.uid);
-    return {
-      ...poll,
-      uid: poll.uid as string,
-      isAnswered: Boolean(isAnswered),
-    };
-  });
+  useEffect(() => {
+    findAllPolls()
+      .then((polls) => setAllPolls(polls))
+  }, [])
 
-  return readyPolls;
+  return allPolls;
 };
 
 export default usePolls;

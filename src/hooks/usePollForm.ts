@@ -7,7 +7,7 @@ const usePollForm: UsePollFormHook = () => {
   const [questions, setQuestions] = useState<Questions>([]);
 
   const createQuestion: CreateQuestion = () => ({
-    uid: uuidv4(),
+    uuid: uuidv4(),
     question: '',
     typeQuestion: 'open_question',
     answers: [],
@@ -24,14 +24,14 @@ const usePollForm: UsePollFormHook = () => {
 
   const onRemoveQuestion = (uid: string) => {
     const filteredQuestions = questions.filter(
-      ({ uid: uidQuestion }) => uidQuestion !== uid
+      ({ uuid: uidQuestion }) => uidQuestion !== uid
     );
     setQuestions(filteredQuestions);
   };
 
   const onGetQuestion: OnGetQuestion = (question) => {
     const newQuestions = questions.map((currentQuestion) => {
-      if (currentQuestion.uid !== question.uid) return currentQuestion;
+      if (currentQuestion.uuid !== question.uuid) return currentQuestion;
       return question;
     });
     setQuestions(newQuestions);

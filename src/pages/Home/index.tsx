@@ -12,10 +12,10 @@ const Home: FC = () => {
       <BoxRoot>
         <Container>
           <Grid container spacing={2}>
-            {polls.map(({ uid, title, isAnswered }) => (
-              <Grid key={uid} item xs={12}>
+            {polls.map(({ uuid, title, isAnswered }) => (
+              <Grid key={uuid} item xs={12}>
                 <PollCard
-                  uid={uid as string}
+                  uuid={uuid as string}
                   title={title}
                   isAnswered={isAnswered}
                 />

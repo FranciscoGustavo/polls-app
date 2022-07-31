@@ -12,12 +12,12 @@ import {
 import { BoxRoot, ContainerProgress, ContainerLinearProgress, ContainerLabelProgress  } from './styles';
 
 type PollCardProps = {
-  uid: string;
+  uuid: string;
   title: string;
   isAnswered: boolean;
 };
 
-const PollCard: FC<PollCardProps> = ({ uid, title, isAnswered }) => {
+const PollCard: FC<PollCardProps> = ({ uuid, title, isAnswered }) => {
   return (
     <BoxRoot>
       <Card>
@@ -38,7 +38,7 @@ const PollCard: FC<PollCardProps> = ({ uid, title, isAnswered }) => {
           </ContainerProgress>
         </CardContent>
         <CardActions>
-          <Button component={Link} to={`/polls/${uid}/answer`}>
+          <Button component={Link} to={`/polls/${uuid}/answer`}>
             Contestar
           </Button>
         </CardActions>

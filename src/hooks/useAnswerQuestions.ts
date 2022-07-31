@@ -8,7 +8,7 @@ const useAnswerQuestions: UseAnswerQuestionsHook = ({ questions }) => {
   const [question, setQuestion] = useState(questions[currentQuestion]);
 
   // Here save all answers order by question uid
-  const [answers, setAnswers] = useState({ [question.uid]: '' });
+  const [answers, setAnswers] = useState({ [question.uuid]: '' });
 
   const [disabledNextQuestion, setDisabledNextQuestion] = useState(true);
   const [finishedPoll, setFinishedPoll] = useState(false);
@@ -16,7 +16,7 @@ const useAnswerQuestions: UseAnswerQuestionsHook = ({ questions }) => {
   const onChangeInputAnswer = (_event: any) => {
     setAnswers({
       ...answers,
-      [question.uid]: _event.target.value,
+      [question.uuid]: _event.target.value,
     });
   };
 
@@ -41,7 +41,7 @@ const useAnswerQuestions: UseAnswerQuestionsHook = ({ questions }) => {
   useEffect(() => {
     setAnswers({
       ...answers,
-      [question.uid]: '',
+      [question.uuid]: '',
     });
   }, [question]);
 
@@ -51,7 +51,7 @@ const useAnswerQuestions: UseAnswerQuestionsHook = ({ questions }) => {
    * if it is not valid, the button stay disabled
    */
   useEffect(() => {
-    if (answers[question.uid] === '' || !answers[question.uid]) {
+    if (answers[question.uuid] === '' || !answers[question.uuid]) {
       setDisabledNextQuestion(true);
     } else {
       setDisabledNextQuestion(false);

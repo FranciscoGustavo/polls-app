@@ -52,10 +52,10 @@ const PollForm: FC = () => {
               onChange={onChangeTitle}
             />
           </Grid>
-          {questions.map(({ uid }) => (
-            <Grid key={uid} item xs={12}>
+          {questions.map(({ uuid }) => (
+            <Grid key={uuid} item xs={12}>
               <Question
-                uid={uid}
+                uid={uuid}
                 onGetQuestion={onGetQuestion}
                 onRemoveQuestion={onRemoveQuestion}
               />

@@ -14,7 +14,7 @@ import { useAnswerQuestions, usePollAnsweredSave } from '../../hooks';
 import { BoxRoot, ContainerQuestion, ContainerAnswer, ContainerButtonNextQuestion } from './styles';
 
 type AnsweringQuestionsProps = {
-  poll: Poll & { uid: string };
+  poll: Poll;
 };
 const AnsweringQuestions: FC<AnsweringQuestionsProps> = ({ poll }) => {
 
@@ -46,7 +46,7 @@ const AnsweringQuestions: FC<AnsweringQuestionsProps> = ({ poll }) => {
           <TextField
             fullWidth
             label="Escribe tu respuesta"
-            value={answers[question.uid]}
+            value={answers[question.uuid]}
             onChange={onChangeInputAnswer}
           />
         )}
@@ -54,12 +54,12 @@ const AnsweringQuestions: FC<AnsweringQuestionsProps> = ({ poll }) => {
           <FormControl component="fieldset">
             <FormLabel component="legend">Opciones</FormLabel>
             <RadioGroup
-              value={answers[question.uid]}
+              value={answers[question.uuid]}
               onChange={onChangeInputAnswer}
             >
-              {question.answers.map(({ uid, answer }) => (
+              {question.answers.map(({ uuid, answer }) => (
                 <FormControlLabel
-                  value={uid}
+                  value={uuid}
                   control={<Radio />}
                   label={answer}
                 />

@@ -37,7 +37,7 @@ type UseQuestionFormHook = (
  * usePollSave
  */
 type UsePollSaveHookReturnedProps = {
-  savePoll: (poll: Poll) => void;
+  savePoll: (poll: CreatePoll) => void;
   isSaved: boolean;
   isSaving: boolean;
   error: boolean;
@@ -50,7 +50,7 @@ type UsePollSaveHook = (poll?: Poll) => UsePollSaveHookReturnedProps;
  * usePolls
  */
 type UsePollsHookReturnedProps = Array<
-  Poll & { uid: string; isAnswered: boolean }
+  Poll & { isAnswered: boolean }
 >;
 type UsePollsHook = () => UsePollsHookReturnedProps;
 
@@ -63,7 +63,7 @@ type UseSetupDataHook = () => void;
  * usePoll
  */
 type UsePollHookReturnedProps = {
-  poll: Poll & { uid: string };
+  poll: Poll;
   isLoading: boolean;
   error: boolean;
 };
@@ -90,7 +90,7 @@ type UseAnswerQuestionsHook = (
  */
 type UsePollAnsweredSaveHookReturnedProps = {
   savePollAnswered: (
-    poll: Poll & { uid: string },
+    poll: Poll,
     answers: AnswersByUser
   ) => void;
   isSaved: boolean;
