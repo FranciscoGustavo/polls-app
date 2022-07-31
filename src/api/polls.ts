@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const api = axios.create({ baseURL: 'http://localhost:5000/polls-app/polls' })
+const api = axios.create({ baseURL: process.env.REACT_APP_API_URL })
 
 export const findAllPolls = async () => {
   const { data } = await api.get('/')
