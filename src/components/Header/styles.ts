@@ -5,7 +5,7 @@ export const Nav = styled('div')(({theme}) => ({
     justifyContent: 'flex-end',
     alignItems: 'center',
     width: '100%',
-    '& > *': {
+    '& > a': {
       marginLeft: theme.spacing(1),
     },
 }));

@@ -10,10 +10,10 @@ const Home: FC = () => {
   return (
     <Layout>
       <BoxRoot>
-        <Container>
-          <Grid container spacing={2}>
+      <Container>
+          <Grid container spacing={3}>
             {polls.map(({ uuid, title, isAnswered }) => (
-              <Grid key={uuid} item xs={12}>
+              <Grid key={uuid} item xs={12} sm={6} md={4}>
                 <PollCard
                   uuid={uuid as string}
                   title={title}

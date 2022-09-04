@@ -18,8 +18,7 @@ type SavePoll = (poll: CretaePoll) => Promise<void>;
 export const savePoll: SavePoll = async (poll) => {
   const response = await api.post('/', poll)
 
-  console.log(response)
-  
+  return response.data
 };
 
 type SavePollAnswered = (poll: Poll) => Promise<void>;
