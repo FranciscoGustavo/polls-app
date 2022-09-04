@@ -1,6 +1,6 @@
 import { Box, styled } from '@mui/material';
 
-export const BoxRoot = styled(Box)(({theme}) => ({
+export const BoxRoot = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -10,6 +10,6 @@ export const BoxRoot = styled(Box)(({theme}) => ({
     maxWidth: theme.breakpoints.values.md,
     margin: 'auto',
     '& > *': {
-      margin: theme.spacing(2, 0),
+        margin: theme.spacing(2, 0),
     },
 }));

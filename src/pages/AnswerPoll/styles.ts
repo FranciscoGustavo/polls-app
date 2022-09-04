@@ -5,11 +5,10 @@ export const BoxRoot = styled(Box)(({ theme }) => ({
     height: '100%',
     padding: theme.spacing(4, 0),
     overflow: 'hidden',
-  
 }));
 
-export const Container = styled(MuiContainer)(({ theme }) => ({
-  width: '100%',
-  height: '100%',
-  overflowY: 'auto',
+export const Container = styled(MuiContainer)(() => ({
+    width: '100%',
+    height: '100%',
+    overflowY: 'auto',
 }));

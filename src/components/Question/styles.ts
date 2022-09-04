@@ -1,7 +1,7 @@
 import { Box, styled } from '@mui/material';
 import RadioGroup, { RadioGroupProps } from '@mui/material/RadioGroup';
 
-export const BoxRoot = styled(Box)(({theme}) => ({
+export const BoxRoot = styled(Box)(({ theme }) => ({
     borderTopStyle: 'solid',
     borderTopWidth: '1px',
     borderTopColor: 'gray',

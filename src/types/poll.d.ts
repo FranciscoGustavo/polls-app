@@ -17,11 +17,11 @@ type Question = {
 type Questions = Question[];
 
 type Poll = {
-  uuid: string
+  uuid: string;
   title: string;
   questions: Questions;
 };
 
 type Polls = Poll[];
 
-type CretaePoll = Omit<Poll, 'uuid'>
+type CretaePoll = Omit<Poll, 'uuid'>;

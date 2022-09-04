@@ -1,27 +1,26 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const api = axios.create({ baseURL: process.env.REACT_APP_API_URL })
+const api = axios.create({ baseURL: process.env.REACT_APP_API_URL });
 
 export const findAllPolls = async () => {
-  const { data } = await api.get('/')
+    const { data } = await api.get('/');
 
-  return data.body
-}
+    return data.body;
+};
 
 export const findOnePoll = async (uuid: string) => {
-  const { data } = await api.get(`/${uuid}`)
+    const { data } = await api.get(`/${uuid}`);
 
-  return data.body
+    return data.body;
 };
 
 type SavePoll = (poll: CretaePoll) => Promise<void>;
 export const savePoll: SavePoll = async (poll) => {
-  const response = await api.post('/', poll)
+    const response = await api.post('/', poll);
 
-  return response.data
+    return response.data;
 };
 
 type SavePollAnswered = (poll: Poll) => Promise<void>;
-export const savePollAnswered: SavePollAnswered = async (poll) => {
-
-};
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export const savePollAnswered: SavePollAnswered = async (/* poll */) => {};

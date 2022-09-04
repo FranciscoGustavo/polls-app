@@ -49,9 +49,7 @@ type UsePollSaveHook = (poll?: Poll) => UsePollSaveHookReturnedProps;
 /**
  * usePolls
  */
-type UsePollsHookReturnedProps = Array<
-  Poll & { isAnswered: boolean }
->;
+type UsePollsHookReturnedProps = Array<Poll & { isAnswered: boolean }>;
 type UsePollsHook = () => UsePollsHookReturnedProps;
 
 /**
@@ -89,10 +87,7 @@ type UseAnswerQuestionsHook = (
  * usePollAnsweredSave
  */
 type UsePollAnsweredSaveHookReturnedProps = {
-  savePollAnswered: (
-    poll: Poll,
-    answers: AnswersByUser
-  ) => void;
+  savePollAnswered: (poll: Poll, answers: AnswersByUser) => void;
   isSaved: boolean;
   isSaving: boolean;
   error: boolean;

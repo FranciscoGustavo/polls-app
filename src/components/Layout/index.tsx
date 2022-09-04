@@ -7,14 +7,14 @@ type LayoutProps = {
 };
 
 const Layout: FC<LayoutProps> = ({ children }) => {
-  return (
-    <BoxRoot>
-      <Header />
-      <Wrapper>
-        <Content>{children}</Content>
-      </Wrapper>
-    </BoxRoot>
-  );
+    return (
+        <BoxRoot>
+            <Header />
+            <Wrapper>
+                <Content>{children}</Content>
+            </Wrapper>
+        </BoxRoot>
+    );
 };
 
 export default Layout;
