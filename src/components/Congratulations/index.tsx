@@ -13,8 +13,13 @@ const Congratulations: FC = () => {
                 <Typography variant="h4">Has terminado la encuesta</Typography>
             </Box>
             <Box>
-                <Button component={Link} to="/" variant="contained" color="secondary">
-          Salir
+                <Button
+                    component={Link}
+                    to="/"
+                    variant="contained"
+                    color="secondary"
+                >
+                    Salir
                 </Button>
             </Box>
         </BoxRoot>

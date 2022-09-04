@@ -70,7 +70,7 @@ const PollForm: FC = () => {
                     onClick={onAddQuestion}
                     disabled={disabledButtons}
                 >
-          Agregar Pregunta
+                    Agregar Pregunta
                 </Button>
                 <Button
                     variant="contained"
@@ -78,7 +78,7 @@ const PollForm: FC = () => {
                     disabled={disabledButtons}
                     onClick={onSavePoll}
                 >
-          Guardar
+                    Guardar
                 </Button>
             </CardActions>
             <Snackbar

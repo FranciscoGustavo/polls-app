@@ -8,8 +8,13 @@ const Header: FC = () => {
         <AppBar>
             <Toolbar>
                 <Nav>
-                    <Button component={Link} to="/" variant="text" color="secondary">
-            Todas
+                    <Button
+                        component={Link}
+                        to="/"
+                        variant="text"
+                        color="secondary"
+                    >
+                        Todas
                     </Button>
                     <Button
                         component={Link}
@@ -17,7 +22,7 @@ const Header: FC = () => {
                         variant="contained"
                         color="secondary"
                     >
-            Nueva encuesta
+                        Nueva encuesta
                     </Button>
                 </Nav>
             </Toolbar>

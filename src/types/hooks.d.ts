@@ -3,13 +3,13 @@
  */
 type CreateQuestion = () => Question;
 type UsePollFormHookReturnedProps = {
-  title: string;
-  disabledButtons: boolean;
-  onChangeTitle: (_event: any) => void;
-  questions: Questions;
-  onAddQuestion: () => void;
-  onRemoveQuestion: (uid: string) => void;
-  onGetQuestion: OnGetQuestion;
+    title: string;
+    disabledButtons: boolean;
+    onChangeTitle: (_event: any) => void;
+    questions: Questions;
+    onAddQuestion: () => void;
+    onRemoveQuestion: (uid: string) => void;
+    onGetQuestion: OnGetQuestion;
 };
 type UsePollFormHook = () => UsePollFormHookReturnedProps;
 
@@ -18,30 +18,30 @@ type UsePollFormHook = () => UsePollFormHookReturnedProps;
  */
 type CreateAnswer = () => Answer;
 type UseQuestionFormHookRetunedProps = {
-  question: string;
-  onChangeQuestion: (_event: any) => void;
-  typeQuestion: TypeQuestion;
-  onChangeTypeQuestion: () => void;
-  answers: Answers;
-  onAddAnswer: () => void;
-  onRemoveAnswer: (uid: string) => void;
-  onChangeAnswer: (uid: string, value: string) => void;
+    question: string;
+    onChangeQuestion: (_event: any) => void;
+    typeQuestion: TypeQuestion;
+    onChangeTypeQuestion: () => void;
+    answers: Answers;
+    onAddAnswer: () => void;
+    onRemoveAnswer: (uid: string) => void;
+    onChangeAnswer: (uid: string, value: string) => void;
 };
 type OnGetQuestion = (question: Question) => void;
 type UseQuestionFormHook = (
-  uid: string,
-  onGetQuestion: OnGetQuestion
+    uid: string,
+    onGetQuestion: OnGetQuestion
 ) => UseQuestionFormHookRetunedProps;
 
 /**
  * usePollSave
  */
 type UsePollSaveHookReturnedProps = {
-  savePoll: (poll: CreatePoll) => void;
-  isSaved: boolean;
-  isSaving: boolean;
-  error: boolean;
-  resetValues: () => void;
+    savePoll: (poll: CreatePoll) => void;
+    isSaved: boolean;
+    isSaving: boolean;
+    error: boolean;
+    resetValues: () => void;
 };
 
 type UsePollSaveHook = (poll?: Poll) => UsePollSaveHookReturnedProps;
@@ -61,9 +61,9 @@ type UseSetupDataHook = () => void;
  * usePoll
  */
 type UsePollHookReturnedProps = {
-  poll: Poll;
-  isLoading: boolean;
-  error: boolean;
+    poll: Poll;
+    isLoading: boolean;
+    error: boolean;
 };
 type UsePollHook = (uid: string) => UsePollHookReturnedProps;
 
@@ -72,24 +72,24 @@ type UsePollHook = (uid: string) => UsePollHookReturnedProps;
  */
 type AnswersByUser = { [key: string]: string };
 type UseAnswerQuestionsHookReturnedProps = {
-  question: Question;
-  answers: AnswersByUser;
-  onChangeInputAnswer: (_event: any) => void;
-  onNextQuestion: () => void;
-  disabledNextQuestion: boolean;
-  finishedPoll: boolean;
+    question: Question;
+    answers: AnswersByUser;
+    onChangeInputAnswer: (_event: any) => void;
+    onNextQuestion: () => void;
+    disabledNextQuestion: boolean;
+    finishedPoll: boolean;
 };
 type UseAnswerQuestionsHook = (
-  poll: Poll
+    poll: Poll
 ) => UseAnswerQuestionsHookReturnedProps;
 
 /**
  * usePollAnsweredSave
  */
 type UsePollAnsweredSaveHookReturnedProps = {
-  savePollAnswered: (poll: Poll, answers: AnswersByUser) => void;
-  isSaved: boolean;
-  isSaving: boolean;
-  error: boolean;
+    savePollAnswered: (poll: Poll, answers: AnswersByUser) => void;
+    isSaved: boolean;
+    isSaving: boolean;
+    error: boolean;
 };
 type UsePollAnsweredSaveHook = () => UsePollAnsweredSaveHookReturnedProps;

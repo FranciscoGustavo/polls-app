@@ -13,7 +13,11 @@ function App() {
                 <Router>
                     <Routes>
                         {ROUTER.map((route, idx) => (
-                            <Route key={`${uuid}-${idx}`} path={route.path} element={<route.Component />} />
+                            <Route
+                                key={`${uuid}-${idx}`}
+                                path={route.path}
+                                element={<route.Component />}
+                            />
                         ))}
                     </Routes>
                 </Router>

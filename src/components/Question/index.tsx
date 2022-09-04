@@ -13,9 +13,9 @@ import Answer from '../Answer';
 import { BoxRoot, Title, RadioGroupForm } from './styles';
 
 type QuestionProps = {
-  uid: string;
-  onGetQuestion: OnGetQuestion;
-  onRemoveQuestion: (uid: string) => void;
+    uid: string;
+    onGetQuestion: OnGetQuestion;
+    onRemoveQuestion: (uid: string) => void;
 };
 const Question: FC<QuestionProps> = ({
     uid,
@@ -52,7 +52,10 @@ const Question: FC<QuestionProps> = ({
                     </Title>
                 </Grid>
                 <Grid item xs={12}>
-                    <RadioGroupForm value={typeQuestion} onChange={onChangeTypeQuestion}>
+                    <RadioGroupForm
+                        value={typeQuestion}
+                        onChange={onChangeTypeQuestion}
+                    >
                         <FormControlLabel
                             value="open_question"
                             control={<Radio />}
@@ -66,21 +69,21 @@ const Question: FC<QuestionProps> = ({
                     </RadioGroupForm>
                 </Grid>
                 {typeQuestion === 'multiple_choice' &&
-          answers.map(({ uuid, answer }) => (
-              <Grid key={uuid} item xs={12}>
-                  <Answer
-                      answer={answer}
-                      onChangeAnswer={(_event: any) =>
-                          onChangeAnswer(uuid, _event.target.value)
-                      }
-                      onRemoveAnswer={() => onRemoveAnswer(uuid)}
-                  />
-              </Grid>
-          ))}
+                    answers.map(({ uuid, answer }) => (
+                        <Grid key={uuid} item xs={12}>
+                            <Answer
+                                answer={answer}
+                                onChangeAnswer={(_event: any) =>
+                                    onChangeAnswer(uuid, _event.target.value)
+                                }
+                                onRemoveAnswer={() => onRemoveAnswer(uuid)}
+                            />
+                        </Grid>
+                    ))}
                 {typeQuestion === 'multiple_choice' && (
                     <Grid item xs={12}>
                         <Button color="secondary" onClick={onAddAnswer}>
-              Agregar Respuesta
+                            Agregar Respuesta
                         </Button>
                     </Grid>
                 )}

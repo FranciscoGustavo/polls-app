@@ -17,9 +17,9 @@ import {
 } from './styles';
 
 type PollCardProps = {
-  uuid: string;
-  title: string;
-  isAnswered: boolean;
+    uuid: string;
+    title: string;
+    isAnswered: boolean;
 };
 
 const PollCard: FC<PollCardProps> = ({ uuid, title, isAnswered }) => {
@@ -44,7 +44,7 @@ const PollCard: FC<PollCardProps> = ({ uuid, title, isAnswered }) => {
                 </CardContent>
                 <CardActions>
                     <Button component={Link} to={`/polls/${uuid}/answer`}>
-            Contestar
+                        Contestar
                     </Button>
                 </CardActions>
             </Card>

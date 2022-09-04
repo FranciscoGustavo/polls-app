@@ -22,8 +22,12 @@ const Copyright = (props: any) => {
             {...props}
         >
             {'Copyright © '}
-            <Link color="inherit" href="https://frcgustavo.com/" target="_blank">
-        frcgustavo.com
+            <Link
+                color="inherit"
+                href="https://frcgustavo.com/"
+                target="_blank"
+            >
+                frcgustavo.com
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -55,9 +59,14 @@ const SignIn: FC = () => {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-          Sign in
+                    Sign in
                 </Typography>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <Box
+                    component="form"
+                    onSubmit={handleSubmit}
+                    noValidate
+                    sx={{ mt: 1 }}
+                >
                     <TextField
                         margin="normal"
                         required
@@ -88,12 +97,12 @@ const SignIn: FC = () => {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-            Sign In
+                        Sign In
                     </Button>
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
-                Forgot password?
+                                Forgot password?
                             </Link>
                         </Grid>
                         <Grid item>

@@ -29,15 +29,15 @@ const useAnswerQuestions: UseAnswerQuestionsHook = ({ questions }) => {
     };
 
     /**
-   * When currentQuestion changes the question object is updated
-   */
+     * When currentQuestion changes the question object is updated
+     */
     useEffect(() => {
         setQuestion(questions[currentQuestion]);
     }, [currentQuestion]);
 
     /**
-   * When question object changes the current answer is updated
-   */
+     * When question object changes the current answer is updated
+     */
     useEffect(() => {
         setAnswers({
             ...answers,
@@ -46,10 +46,10 @@ const useAnswerQuestions: UseAnswerQuestionsHook = ({ questions }) => {
     }, [question]);
 
     /**
-   * When answer of one question change verify if is valid
-   * if it is valid, the button is activated to go to the next question
-   * if it is not valid, the button stay disabled
-   */
+     * When answer of one question change verify if is valid
+     * if it is valid, the button is activated to go to the next question
+     * if it is not valid, the button stay disabled
+     */
     useEffect(() => {
         if (answers[question.uuid] === '' || !answers[question.uuid]) {
             setDisabledNextQuestion(true);

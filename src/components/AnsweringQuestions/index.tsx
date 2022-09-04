@@ -19,7 +19,7 @@ import {
 } from './styles';
 
 type AnsweringQuestionsProps = {
-  poll: Poll;
+    poll: Poll;
 };
 const AnsweringQuestions: FC<AnsweringQuestionsProps> = ({ poll }) => {
     const {
@@ -80,7 +80,7 @@ const AnsweringQuestions: FC<AnsweringQuestionsProps> = ({ poll }) => {
                     disabled={disabledNextQuestion}
                     onClick={onNextQuestion}
                 >
-          Siguiente
+                    Siguiente
                 </Button>
             </ContainerButtonNextQuestion>
         </BoxRoot>

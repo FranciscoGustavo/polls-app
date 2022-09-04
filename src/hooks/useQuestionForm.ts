@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 const useQuestionForm: UseQuestionFormHook = (uidQuestion, onGetQuestion) => {
     const [question, setQuestion] = useState('');
     const [typeQuestion, setTypeQuestion] =
-    useState<TypeQuestion>('open_question');
+        useState<TypeQuestion>('open_question');
     const [answers, setAnswers] = useState<Answers>([]);
 
     const createAnswer: CreateAnswer = () => ({

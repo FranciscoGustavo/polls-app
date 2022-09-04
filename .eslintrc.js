@@ -24,10 +24,6 @@ module.exports = {
             'error',
             4
         ],
-        'linebreak-style': [
-            'error',
-            'windows'
-        ],
         'quotes': [
             'error',
             'single'
@@ -35,6 +31,10 @@ module.exports = {
         'semi': [
             'error',
             'always'
+        ],
+        'jsx-quotes': [
+            'error',
+            'prefer-double'
         ],
         'react/react-in-jsx-scope': 'off'
     }

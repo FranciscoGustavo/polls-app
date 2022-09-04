@@ -4,9 +4,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { BoxRoot } from './styles';
 
 type AnswerProps = {
-  answer: string;
-  onChangeAnswer: (_event: React.ChangeEventHandler<HTMLInputElement>) => void;
-  onRemoveAnswer: () => void;
+    answer: string;
+    onChangeAnswer: (
+        _event: React.ChangeEventHandler<HTMLInputElement>
+    ) => void;
+    onRemoveAnswer: () => void;
 };
 const Answer: FC<AnswerProps> = ({
     answer,
