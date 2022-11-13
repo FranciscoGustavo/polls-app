@@ -73,7 +73,7 @@ const Question: FC<QuestionProps> = ({
                         <Grid key={uuid} item xs={12}>
                             <Answer
                                 answer={answer}
-                                onChangeAnswer={(_event: any) =>
+                                onChangeAnswer={(_event: React.ChangeEvent<HTMLInputElement>) =>
                                     onChangeAnswer(uuid, _event.target.value)
                                 }
                                 onRemoveAnswer={() => onRemoveAnswer(uuid)}

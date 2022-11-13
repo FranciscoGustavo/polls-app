@@ -14,9 +14,12 @@ import MuiAlert, { AlertProps } from '@mui/lab/Alert';
 import { usePollForm, usePollSave } from '../../hooks';
 import Question from '../Question';
 
-const Alert = (props: AlertProps) => {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-};
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref,
+) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const PollForm: FC = () => {
     const {
@@ -36,54 +39,56 @@ const PollForm: FC = () => {
     };
 
     return (
-        <Card>
-            <CardHeader title="Nueva encuesta" />
-            <Divider />
-            <CardContent>
-                <Grid container spacing={4}>
-                    <Grid item xs={12}>
-                        <TextField
-                            id="title"
-                            name="title"
-                            label="Titulo de la encuesta"
-                            variant="outlined"
-                            fullWidth
-                            value={title}
-                            onChange={onChangeTitle}
-                        />
-                    </Grid>
-                    {questions.map(({ uuid }) => (
-                        <Grid key={uuid} item xs={12}>
-                            <Question
-                                uid={uuid}
-                                onGetQuestion={onGetQuestion}
-                                onRemoveQuestion={onRemoveQuestion}
+        <>
+            <Card>
+                <CardHeader title="Nueva encuesta" />
+                <Divider />
+                <CardContent>
+                    <Grid container spacing={4}>
+                        <Grid item xs={12}>
+                            <TextField
+                                id="title"
+                                name="title"
+                                label="Titulo de la encuesta"
+                                variant="outlined"
+                                fullWidth
+                                value={title}
+                                onChange={onChangeTitle}
                             />
                         </Grid>
-                    ))}
-                </Grid>
-            </CardContent>
-            <Divider />
-            <CardActions>
-                <Button
-                    color="primary"
-                    onClick={onAddQuestion}
-                    disabled={disabledButtons}
-                >
+                        {questions.map(({ uuid }) => (
+                            <Grid key={uuid} item xs={12}>
+                                <Question
+                                    uid={uuid}
+                                    onGetQuestion={onGetQuestion}
+                                    onRemoveQuestion={onRemoveQuestion}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
+                </CardContent>
+                <Divider />
+                <CardActions>
+                    <Button
+                        color="primary"
+                        onClick={onAddQuestion}
+                        disabled={disabledButtons}
+                    >
                     Agregar Pregunta
-                </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    disabled={disabledButtons}
-                    onClick={onSavePoll}
-                >
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        disabled={disabledButtons}
+                        onClick={onSavePoll}
+                    >
                     Guardar
-                </Button>
-            </CardActions>
+                    </Button>
+                </CardActions>
+            </Card>
             <Snackbar
                 open={isSaving || isSaved || error}
-                autoHideDuration={6000}
+                autoHideDuration={2000}
                 onClose={resetValues}
             >
                 <Alert
@@ -95,7 +100,7 @@ const PollForm: FC = () => {
                     {error && 'Upss algo salio mal'}
                 </Alert>
             </Snackbar>
-        </Card>
+        </>
     );
 };
 

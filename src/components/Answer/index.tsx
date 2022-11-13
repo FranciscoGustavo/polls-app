@@ -6,7 +6,7 @@ import { BoxRoot } from './styles';
 type AnswerProps = {
     answer: string;
     onChangeAnswer: (
-        _event: React.ChangeEventHandler<HTMLInputElement>
+        _event: React.ChangeEvent<HTMLInputElement>
     ) => void;
     onRemoveAnswer: () => void;
 };
