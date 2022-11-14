@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { 
     Container,
     Paper,
@@ -42,9 +43,11 @@ const Home: FC = () => {
                                         <TableCell>{poll.questions.length}</TableCell>
                                         <TableCell>0</TableCell>
                                         <TableCell align="right">
-                                            <IconButton>
-                                                <EditIcon fontSize="small"/>
-                                            </IconButton>
+                                            <Link to={`/polls/${poll.uuid}/edit`}>
+                                                <IconButton>
+                                                    <EditIcon fontSize="small"/>
+                                                </IconButton>
+                                            </Link>
                                             <IconButton>
                                                 <DeleteIcon fontSize="small"/>
                                             </IconButton>
