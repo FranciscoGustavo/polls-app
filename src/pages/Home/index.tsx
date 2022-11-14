@@ -1,5 +1,17 @@
 import { FC } from 'react';
-import { Container, Grid } from '@mui/material';
+import { 
+    Container,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    IconButton,
+} from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { usePolls } from '../../hooks';
 import { Layout, PollCard } from '../../components';
 import { BoxRoot } from './styles';
@@ -11,17 +23,38 @@ const Home: FC = () => {
         <Layout>
             <BoxRoot>
                 <Container>
-                    <Grid container spacing={3}>
-                        {polls.map(({ uuid, title, isAnswered }) => (
-                            <Grid key={uuid} item xs={12} sm={6} md={4}>
-                                <PollCard
-                                    uuid={uuid as string}
-                                    title={title}
-                                    isAnswered={isAnswered}
-                                />
-                            </Grid>
-                        ))}
-                    </Grid>
+                    <TableContainer component={Paper}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>ID</TableCell>
+                                    <TableCell>Titulo</TableCell>
+                                    <TableCell>Preguntas</TableCell>
+                                    <TableCell>Contestadas</TableCell>
+                                    <TableCell align="right">Acciones</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {polls.map(poll => (
+                                    <TableRow>
+                                        <TableCell>{poll.uuid.substring(0,8)}</TableCell>
+                                        <TableCell>{poll.title}</TableCell>
+                                        <TableCell>{poll.questions.length}</TableCell>
+                                        <TableCell>0</TableCell>
+                                        <TableCell align="right">
+                                            <IconButton>
+                                                <EditIcon fontSize="small"/>
+                                            </IconButton>
+                                            <IconButton>
+                                                <DeleteIcon fontSize="small"/>
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                                
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </Container>
             </BoxRoot>
         </Layout>
