@@ -22,5 +22,4 @@ export const savePoll: SavePoll = async (poll) => {
 };
 
 type SavePollAnswered = (poll: Poll) => Promise<void>;
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 export const savePollAnswered: SavePollAnswered = async (/* poll */) => {};
