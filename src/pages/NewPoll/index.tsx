@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Container } from '@mui/material';
-import { Layout, PollForm } from '../../components';
+import { Layout, PollForm, PollForm2 } from '../../components';
 import { BoxRoot } from './styles';
 
 const NewPoll: FC = () => {
@@ -8,7 +8,7 @@ const NewPoll: FC = () => {
         <Layout>
             <BoxRoot>
                 <Container maxWidth="md">
-                    <PollForm title="" questions={[]} />
+                    <PollForm2 />
                 </Container>
             </BoxRoot>
         </Layout>

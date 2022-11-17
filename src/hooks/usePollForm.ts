@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const usePollForm: UsePollFormHook = ({ title: oldTitle, questions: oldQuestions }) => {
+const usePollForm: UsePollFormHook = ({
+    title: oldTitle,
+    questions: oldQuestions,
+}) => {
     const [title, setTitle] = useState(oldTitle);
     const [disabledButtons, setDisabledButtons] = useState(true);
     const [questions, setQuestions] = useState<Questions>(oldQuestions);

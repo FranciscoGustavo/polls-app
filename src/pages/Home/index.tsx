@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { 
+import {
     Container,
     Paper,
     Table,
@@ -32,29 +32,36 @@ const Home: FC = () => {
                                     <TableCell>Titulo</TableCell>
                                     <TableCell>Preguntas</TableCell>
                                     <TableCell>Contestadas</TableCell>
-                                    <TableCell align="right">Acciones</TableCell>
+                                    <TableCell align="right">
+                                        Acciones
+                                    </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {polls.map(poll => (
+                                {polls.map((poll) => (
                                     <TableRow>
-                                        <TableCell>{poll.uuid.substring(0,8)}</TableCell>
+                                        <TableCell>
+                                            {poll.uuid.substring(0, 8)}
+                                        </TableCell>
                                         <TableCell>{poll.title}</TableCell>
-                                        <TableCell>{poll.questions.length}</TableCell>
+                                        <TableCell>
+                                            {poll.questions.length}
+                                        </TableCell>
                                         <TableCell>0</TableCell>
                                         <TableCell align="right">
-                                            <Link to={`/polls/${poll.uuid}/edit`}>
+                                            <Link
+                                                to={`/polls/${poll.uuid}/edit`}
+                                            >
                                                 <IconButton>
-                                                    <EditIcon fontSize="small"/>
+                                                    <EditIcon fontSize="small" />
                                                 </IconButton>
                                             </Link>
                                             <IconButton>
-                                                <DeleteIcon fontSize="small"/>
+                                                <DeleteIcon fontSize="small" />
                                             </IconButton>
                                         </TableCell>
                                     </TableRow>
                                 ))}
-                                
                             </TableBody>
                         </Table>
                     </TableContainer>

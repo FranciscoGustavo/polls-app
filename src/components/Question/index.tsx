@@ -14,11 +14,17 @@ import { BoxRoot, Title, RadioGroupForm } from './styles';
 
 type QuestionProps = {
     uid: string;
+    question: string;
+    typeQuestion: TypeQuestion;
+    answers: Answers;
     onGetQuestion: OnGetQuestion;
     onRemoveQuestion: (uid: string) => void;
 };
 const Question: FC<QuestionProps> = ({
     uid,
+    question: oldQuestion,
+    typeQuestion: oldTypeQuestion,
+    answers: oldAnswers,
     onGetQuestion,
     onRemoveQuestion,
 }) => {
@@ -31,7 +37,13 @@ const Question: FC<QuestionProps> = ({
         onAddAnswer,
         onRemoveAnswer,
         onChangeAnswer,
-    } = useQuestionForm(uid, onGetQuestion);
+    } = useQuestionForm({
+        uid,
+        onGetQuestion,
+        question: oldQuestion,
+        typeQuestion: oldTypeQuestion,
+        answers: oldAnswers,
+    });
 
     return (
         <BoxRoot>
@@ -73,9 +85,9 @@ const Question: FC<QuestionProps> = ({
                         <Grid key={uuid} item xs={12}>
                             <Answer
                                 answer={answer}
-                                onChangeAnswer={(_event: React.ChangeEvent<HTMLInputElement>) =>
-                                    onChangeAnswer(uuid, _event.target.value)
-                                }
+                                onChangeAnswer={(
+                                    _event: React.ChangeEvent<HTMLInputElement>
+                                ) => onChangeAnswer(uuid, _event.target.value)}
                                 onRemoveAnswer={() => onRemoveAnswer(uuid)}
                             />
                         </Grid>

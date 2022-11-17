@@ -11,7 +11,10 @@ type UsePollFormHookReturnedProps = {
     onRemoveQuestion: (uid: string) => void;
     onGetQuestion: OnGetQuestion;
 };
-type UsePollFormHook = (params: { title: string; questions: Questions }) => UsePollFormHookReturnedProps;
+type UsePollFormHook = (params: {
+    title: string;
+    questions: Questions;
+}) => UsePollFormHookReturnedProps;
 
 /**
  * useQuestionForm
@@ -28,10 +31,13 @@ type UseQuestionFormHookRetunedProps = {
     onChangeAnswer: (uid: string, value: string) => void;
 };
 type OnGetQuestion = (question: Question) => void;
-type UseQuestionFormHook = (
-    uid: string,
-    onGetQuestion: OnGetQuestion
-) => UseQuestionFormHookRetunedProps;
+type UseQuestionFormHook = (props: {
+    uid: string;
+    question: string;
+    typeQuestion: TypeQuestion;
+    answers: Answers;
+    onGetQuestion: OnGetQuestion;
+}) => UseQuestionFormHookRetunedProps;
 
 /**
  * usePollSave
