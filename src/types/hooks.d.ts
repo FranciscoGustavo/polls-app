@@ -11,7 +11,7 @@ type UsePollFormHookReturnedProps = {
     onRemoveQuestion: (uid: string) => void;
     onGetQuestion: OnGetQuestion;
 };
-type UsePollFormHook = () => UsePollFormHookReturnedProps;
+type UsePollFormHook = (params: { title: string; questions: Questions }) => UsePollFormHookReturnedProps;
 
 /**
  * useQuestionForm

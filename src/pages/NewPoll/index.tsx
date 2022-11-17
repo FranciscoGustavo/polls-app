@@ -8,7 +8,7 @@ const NewPoll: FC = () => {
         <Layout>
             <BoxRoot>
                 <Container maxWidth="md">
-                    <PollForm />
+                    <PollForm title="" questions={[]} />
                 </Container>
             </BoxRoot>
         </Layout>

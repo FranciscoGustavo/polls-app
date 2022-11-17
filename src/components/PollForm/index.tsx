@@ -21,7 +21,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const PollForm: FC = () => {
+const PollForm: FC<{ title: string, questions: Questions }> = ({ title: oldTitle, questions: oldQuestions }) => {
     const {
         title,
         onChangeTitle,
@@ -30,7 +30,7 @@ const PollForm: FC = () => {
         onRemoveQuestion,
         onGetQuestion,
         disabledButtons,
-    } = usePollForm();
+    } = usePollForm({ title: oldTitle, questions: oldQuestions });
 
     const { savePoll, isSaving, isSaved, error, resetValues } = usePollSave();
 
