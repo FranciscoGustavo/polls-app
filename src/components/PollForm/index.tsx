@@ -77,8 +77,8 @@ export const SpeedDialButton = styled(Button)<ButtonProps>(() => ({
     position: 'absolute',
     right: '50px',
     bottom: '50px',
-    width: '60px',
-    height: '60px',
+    width: '80px',
+    height: '80px',
     borderRadius: '100%',
 }));
 
@@ -100,6 +100,7 @@ export const PollForm2: FC<{ poll?: Poll }> = ({ poll: oldPoll }) => {
         oldPoll || { uuid: '', title: '', questions: [] }
     );
     const [expanded, setExpanded] = React.useState<string | false>(false);
+    const { savePoll, isSaving, isSaved, error, resetValues } = usePollSave();
 
     const handleChange =
         (panel: string) =>
@@ -195,7 +196,7 @@ export const PollForm2: FC<{ poll?: Poll }> = ({ poll: oldPoll }) => {
         const questions: Questions = poll.questions.map(
             (currentQuestion) => {
                 if (currentQuestion.uuid === uuid) {
-                    currentQuestion.answers.map(currentAnswer => {
+                    currentQuestion.answers = currentQuestion.answers.map(currentAnswer => {
                         if (currentAnswer.uuid === answerUuid) {
                             currentAnswer.answer = event.target.value;
                         }
@@ -214,12 +215,47 @@ export const PollForm2: FC<{ poll?: Poll }> = ({ poll: oldPoll }) => {
         });
     };
 
+    const handleDeleteQuestion = (uuid: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        const questions: Questions = poll.questions.filter(
+            (currentQuestion) => currentQuestion.uuid !== uuid
+        );
+
+        setPoll({
+            ...poll,
+            questions,
+        });
+    };
+
+    const handleDeleteAnswer = ({ uuid, answerUuid }: {uuid: string; answerUuid: string}) => (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        const questions: Questions = poll.questions.map(
+            (currentQuestion) => {
+                if (currentQuestion.uuid === uuid) {
+                    currentQuestion.answers = currentQuestion.answers.filter(currentAnswer => currentAnswer.uuid !== answerUuid);
+                }
+
+                return currentQuestion;
+            }
+        );
+
+        setPoll({
+            ...poll,
+            questions,
+        });
+    };
+
     const handleSave = () => {
         console.log('Guardando...', poll);
+        savePoll(poll);
     };
 
     return (
-        <div style={{}}>
+        <>
+            <PaperBox>
+                <Button color="secondary" variant="contained" onClick={handleSave}>Guardar</Button>
+                <Button onClick={handleAddNewQuestion}>Agregar Pregunta</Button>
+            </PaperBox>
             <PaperBox>
                 <TextField
                     id="title"
@@ -231,9 +267,6 @@ export const PollForm2: FC<{ poll?: Poll }> = ({ poll: oldPoll }) => {
                     onChange={handleChangeTitle}
                 />
             </PaperBox>
-
-            {/* <Divider /> */}
-
             {poll.questions.map(({ uuid, question, typeQuestion, answers }) => (
                 <Accordion
                     key={uuid}
@@ -251,7 +284,7 @@ export const PollForm2: FC<{ poll?: Poll }> = ({ poll: oldPoll }) => {
                                 </Typography>
                             </Grid>
                             <Grid item xs={1}>
-                                <IconButton>
+                                <IconButton onClick={handleDeleteQuestion(uuid)}>
                                     <DeleteIcon fontSize="small" />
                                 </IconButton>
                             </Grid>
@@ -301,7 +334,7 @@ export const PollForm2: FC<{ poll?: Poll }> = ({ poll: oldPoll }) => {
                                         </Grid>
 
                                         <Grid item xs={1}>
-                                            <IconButton>
+                                            <IconButton onClick={handleDeleteAnswer({ uuid, answerUuid })}>
                                                 <DeleteIcon />
                                             </IconButton>
                                         </Grid>
@@ -321,12 +354,20 @@ export const PollForm2: FC<{ poll?: Poll }> = ({ poll: oldPoll }) => {
                     </AccordionDetails>
                 </Accordion>
             ))}
-            <SpeedDialButton variant="contained" onClick={handleAddNewQuestion}>
-                <AddIcon />
-            </SpeedDialButton>
-            <Button variant="contained" onClick={handleSave}>
-                <SaveIcon />
-            </Button>
-        </div>
+            <Snackbar
+                open={isSaving || isSaved || error}
+                autoHideDuration={5000}
+                onClose={resetValues}
+            >
+                <Alert
+                    severity={error ? 'error' : isSaving ? 'info' : 'success'}
+                    onClose={resetValues}
+                >
+                    {isSaving && 'Guardando'}
+                    {isSaved && 'Encuesta guardada'}
+                    {error && 'Upss algo salio mal'}
+                </Alert>
+            </Snackbar>
+        </>
     );
 };
