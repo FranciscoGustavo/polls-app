@@ -1,30 +1,26 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Button } from '@mui/material';
-import { Nav } from './styles';
+import { AppBar, Toolbar, Box, Button, Avatar } from '@mui/material';
+import { MenuContainer } from './styles';
+
+const menuItems = [
+    { name: 'Todas', href: '/' },
+    { name: 'Nueva', href: '/polls/new' },
+    { name: 'Metricas', href: '/polls/metricts'}
+];
 
 const Header: FC = () => {
     return (
         <AppBar>
             <Toolbar>
-                <Nav>
-                    <Button
-                        component={Link}
-                        to="/"
-                        variant="text"
-                        color="secondary"
-                    >
-                        Todas
-                    </Button>
-                    <Button
-                        component={Link}
-                        to="/polls/new"
-                        variant="contained"
-                        color="secondary"
-                    >
-                        Nueva encuesta
-                    </Button>
-                </Nav>
+                <Avatar src="https://frcgustavo.com/_next/image?url=%2Ficons%2Fbloging-logo-192.png&w=48&q=75" />
+                <MenuContainer>
+                    {menuItems.map(({ name, href }) => (
+                        <Button component={Link} to={href} sx={{ color: '#fff' }}>
+                            {name}
+                        </Button>
+                    ))}
+                </MenuContainer>
             </Toolbar>
         </AppBar>
     );
