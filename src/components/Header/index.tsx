@@ -16,7 +16,7 @@ const Header: FC = () => {
                 <Avatar src="https://frcgustavo.com/_next/image?url=%2Ficons%2Fbloging-logo-192.png&w=48&q=75" />
                 <MenuContainer>
                     {menuItems.map(({ name, href }) => (
-                        <Button component={Link} to={href} sx={{ color: '#fff' }}>
+                        <Button key={name} component={Link} to={href} sx={{ color: '#fff' }}>
                             {name}
                         </Button>
                     ))}

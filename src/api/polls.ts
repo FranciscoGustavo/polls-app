@@ -23,3 +23,11 @@ export const savePoll: SavePoll = async (poll) => {
 
 type SavePollAnswered = (poll: Poll) => Promise<void>;
 export const savePollAnswered: SavePollAnswered = async (/* poll */) => {};
+
+type DeletePoll = (uuid: string) => Promise<boolean>;
+export const deletePoll: DeletePoll = async (uuid: string) => {
+    const response = await api.delete(uuid);
+
+    return response.data.isDelete as boolean;
+};
+
