@@ -1,12 +1,7 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC } from 'react';
 import { Paper, TextField, Button, Snackbar, PaperProps } from '@mui/material';
-import { Box, styled } from '@mui/material';
-import {
-    Delete as DeleteIcon,
-    Add as AddIcon,
-    Save as SaveIcon,
-    ExpandMore as ExpandMoreIcon,
-} from '@mui/icons-material';
+import { styled } from '@mui/material';
+import { Add as AddIcon, Save as SaveIcon } from '@mui/icons-material';
 import { Alert } from '../Alert';
 import { QuestionsListForm } from '../QuestionsListForm';
 import { usePollForm } from './PollForm.hook';
@@ -24,7 +19,7 @@ export const PollForm: FC<{ poll?: Poll }> = ({ poll: oldPoll }) => {
         isSaved,
         error,
         handleChangeTitle,
-        handleChange,
+        handleAccordion,
         handleAddNewQuestion,
         handleAddNewAnswer,
         handleChangeQuestion,
@@ -65,7 +60,7 @@ export const PollForm: FC<{ poll?: Poll }> = ({ poll: oldPoll }) => {
                 questions={poll.questions}
                 expanded={expanded}
                 handleDeleteQuestion={handleDeleteQuestion}
-                handleChange={handleChange}
+                handleAccordion={handleAccordion}
                 handleChangeQuestion={handleChangeQuestion}
                 handleChangeTypeQuestion={handleChangeTypeQuestion}
                 handleChangeAnswer={handleChangeAnswer}

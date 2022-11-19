@@ -43,7 +43,7 @@ const getTypeQuestion = (type: TypeQuestion) => {
 export const QuestionsListForm: FC<{
     questions: Questions;
     expanded: string | boolean;
-    handleChange: (
+    handleAccordion: (
         panel: string
     ) => (event: React.SyntheticEvent | null, isExpanded: boolean) => void;
     handleDeleteQuestion: (
@@ -57,18 +57,18 @@ export const QuestionsListForm: FC<{
     ) => (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleChangeAnswer: (props: {
         uuid: string;
-        answerUuid: string;
+        answerUUID: string;
     }) => (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleDeleteAnswer: (props: {
         uuid: string;
-        answerUuid: string;
+        answerUUID: string;
     }) => (event: React.MouseEvent<HTMLButtonElement>) => void;
     handleAddNewAnswer: (uuid: string) => () => void;
 }> = ({
     questions,
     expanded,
     handleDeleteQuestion,
-    handleChange,
+    handleAccordion,
     handleChangeQuestion,
     handleChangeTypeQuestion,
     handleChangeAnswer,
@@ -81,7 +81,7 @@ export const QuestionsListForm: FC<{
                 <Accordion
                     key={uuid}
                     expanded={expanded === uuid}
-                    onChange={handleChange(uuid)}
+                    onChange={handleAccordion(uuid)}
                 >
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         <Grid container>
@@ -133,8 +133,8 @@ export const QuestionsListForm: FC<{
                                         />
                                     </RadioGroupForm>
                                 </Grid>
-                                {answers.map(({ uuid: answerUuid, answer }) => (
-                                    <Fragment key={answerUuid}>
+                                {answers.map(({ uuid: answerUUID, answer }) => (
+                                    <Fragment key={answerUUID}>
                                         <Grid item xs={11}>
                                             <TextField
                                                 label="Respuesta"
@@ -143,7 +143,7 @@ export const QuestionsListForm: FC<{
                                                 value={answer}
                                                 onChange={handleChangeAnswer({
                                                     uuid,
-                                                    answerUuid,
+                                                    answerUUID,
                                                 })}
                                             />
                                         </Grid>
@@ -152,7 +152,7 @@ export const QuestionsListForm: FC<{
                                             <IconButton
                                                 onClick={handleDeleteAnswer({
                                                     uuid,
-                                                    answerUuid,
+                                                    answerUUID,
                                                 })}
                                             >
                                                 <DeleteIcon />

@@ -1,171 +1,107 @@
-import React, { FC, useState, Fragment } from 'react';
-import { v4 } from 'uuid';
+import React, { FC, useState, useCallback, useReducer } from 'react';
+import { reducer } from './PollForm.reducer';
+import {
+    addNewAnswer,
+    addNewQuestion,
+    deleteAnswer,
+    deleteQuestion,
+    updateAnswer,
+    updateQuestion,
+    updateTitle,
+    updateTypeQuestion,
+} from './PollForm.actions';
 import { usePollSave } from '../../hooks';
 
+const defaultInitialState: Poll = {
+    uuid: '',
+    title: '',
+    questions: [],
+};
+
 export const usePollForm: UsePollForm = ({ poll: oldPoll }) => {
-    const [poll, setPoll] = useState<Poll>(
-        oldPoll || { uuid: '', title: '', questions: [] }
+    const [poll, dispatch] = useReducer(
+        reducer,
+        oldPoll ? oldPoll : defaultInitialState
     );
-    const [expanded, setExpanded] = React.useState<string | false>(false);
+
+    const [expanded, setExpanded] = useState<string | false>(false);
     const { savePoll, isSaving, isSaved, error, resetValues } = usePollSave();
 
-    const handleChange =
+    const handleAccordion = useCallback(
         (panel: string) =>
-        (event: React.SyntheticEvent | null, isExpanded: boolean) => {
-            setExpanded(isExpanded ? panel : false);
-        };
+            (event: React.SyntheticEvent | null, isExpanded: boolean) => {
+                setExpanded(isExpanded ? panel : false);
+            },
+        []
+    );
 
-    const handleAddNewQuestion = () => {
-        const newQuestion: Question = {
-            uuid: v4(),
-            question: '',
-            typeQuestion: 'open_question',
-            answers: [],
-        };
-        const questions = [...poll.questions];
-        questions.push(newQuestion);
-        setPoll({
-            ...poll,
-            questions,
-        });
-
-        handleChange(newQuestion.uuid)(null, true);
-    };
-
-    const handleAddNewAnswer = (uuid: string) => () => {
-        const newAnswer: Answer = {
-            uuid: v4(),
-            answer: '',
-        };
-        const questions: Questions = poll.questions.map((currentQuestion) => {
-            if (currentQuestion.uuid === uuid) {
-                currentQuestion.answers = [
-                    ...currentQuestion.answers,
-                    newAnswer,
-                ];
-            }
-
-            return currentQuestion;
-        });
-
-        setPoll({
-            ...poll,
-            questions,
-        });
-    };
-
-    const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const title = event.target.value;
-        setPoll({
-            ...poll,
-            title,
-        });
-    };
-
-    const handleChangeQuestion =
-        (uuid: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            const questions: Questions = poll.questions.map(
-                (currentQuestion) => {
-                    if (currentQuestion.uuid === uuid) {
-                        currentQuestion.question = event.target.value;
-                    }
-
-                    return currentQuestion;
-                }
-            );
-
-            setPoll({
-                ...poll,
-                questions,
-            });
-        };
-
-    const handleChangeTypeQuestion =
-        (uuid: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            const questions: Questions = poll.questions.map(
-                (currentQuestion) => {
-                    if (currentQuestion.uuid === uuid) {
-                        currentQuestion.typeQuestion = event.target
-                            .value as TypeQuestion;
-                    }
-
-                    return currentQuestion;
-                }
-            );
-
-            setPoll({
-                ...poll,
-                questions,
-            });
-        };
-
-    const handleChangeAnswer =
-        ({ uuid, answerUuid }: { uuid: string; answerUuid: string }) =>
+    const handleChangeTitle = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
-            const questions: Questions = poll.questions.map(
-                (currentQuestion) => {
-                    if (currentQuestion.uuid === uuid) {
-                        currentQuestion.answers = currentQuestion.answers.map(
-                            (currentAnswer) => {
-                                if (currentAnswer.uuid === answerUuid) {
-                                    currentAnswer.answer = event.target.value;
-                                }
+            dispatch(updateTitle(event.target.value));
+        },
+        []
+    );
 
-                                return currentAnswer;
-                            }
-                        );
-                    }
+    const handleAddNewQuestion = useCallback(() => {
+        dispatch(addNewQuestion());
+        // handleChange(newQuestion.uuid)(null, true);
+    }, []);
 
-                    return currentQuestion;
-                }
-            );
+    const handleChangeQuestion = useCallback(
+        (uuid: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch(updateQuestion({ uuid, value: event.target.value }));
+        },
+        []
+    );
 
-            setPoll({
-                ...poll,
-                questions,
-            });
-        };
+    const handleChangeTypeQuestion = useCallback(
+        (uuid: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch(updateTypeQuestion({ uuid, value: event.target.value }));
+        },
+        []
+    );
 
-    const handleDeleteQuestion =
+    const handleAddNewAnswer = useCallback(
+        (uuid: string) => () => {
+            dispatch(addNewAnswer(uuid));
+        },
+        []
+    );
+
+    const handleChangeAnswer = useCallback(
+        ({ uuid, answerUUID }: { uuid: string; answerUUID: string }) =>
+            (event: React.ChangeEvent<HTMLInputElement>) => {
+                dispatch(
+                    updateAnswer({
+                        uuid,
+                        answerUUID,
+                        value: event.target.value,
+                    })
+                );
+            },
+        []
+    );
+
+    const handleDeleteQuestion = useCallback(
         (uuid: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
             event.stopPropagation();
-            const questions: Questions = poll.questions.filter(
-                (currentQuestion) => currentQuestion.uuid !== uuid
-            );
+            dispatch(deleteQuestion(uuid));
+        },
+        []
+    );
 
-            setPoll({
-                ...poll,
-                questions,
-            });
-        };
-
-    const handleDeleteAnswer =
-        ({ uuid, answerUuid }: { uuid: string; answerUuid: string }) =>
-        (event: React.MouseEvent<HTMLButtonElement>) => {
-            event.stopPropagation();
-            const questions: Questions = poll.questions.map(
-                (currentQuestion) => {
-                    if (currentQuestion.uuid === uuid) {
-                        currentQuestion.answers =
-                            currentQuestion.answers.filter(
-                                (currentAnswer) =>
-                                    currentAnswer.uuid !== answerUuid
-                            );
-                    }
-
-                    return currentQuestion;
-                }
-            );
-
-            setPoll({
-                ...poll,
-                questions,
-            });
-        };
+    const handleDeleteAnswer = useCallback(
+        ({ uuid, answerUUID }: { uuid: string; answerUUID: string }) =>
+            (event: React.MouseEvent<HTMLButtonElement>) => {
+                event.stopPropagation();
+                dispatch(deleteAnswer({ uuid, answerUUID }));
+            },
+        []
+    );
 
     const handleSave = () => {
-        console.log('Guardando...', poll);
-        savePoll(poll);
+        console.log('Guardando...');
+        // savePoll(poll);
     };
 
     return {
@@ -174,7 +110,7 @@ export const usePollForm: UsePollForm = ({ poll: oldPoll }) => {
         isSaving,
         isSaved,
         error,
-        handleChange,
+        handleAccordion,
         handleAddNewQuestion,
         handleAddNewAnswer,
         handleChangeTitle,

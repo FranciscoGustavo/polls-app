@@ -5,7 +5,7 @@ type UsePollForm = (props: { poll?: Poll }) => {
     isSaved: boolean;
     error: boolean;
     handleChangeTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    handleChange: (
+    handleAccordion: (
         panel: string
     ) => (event: React.SyntheticEvent | null, isExpanded: boolean) => void;
     handleAddNewQuestion: () => void;
@@ -16,19 +16,16 @@ type UsePollForm = (props: { poll?: Poll }) => {
     handleChangeTypeQuestion: (
         uuid: string
     ) => (event: React.ChangeEvent<HTMLInputElement>) => void;
-    handleChangeAnswer: ({
-        uuid,
-        answerUuid,
-    }: {
+    handleChangeAnswer: (props: {
         uuid: string;
-        answerUuid: string;
+        answerUUID: string;
     }) => (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleDeleteQuestion: (
         uuid: string
     ) => (event: React.MouseEvent<HTMLButtonElement>) => void;
     handleDeleteAnswer: (props: {
         uuid: string;
-        answerUuid: string;
+        answerUUID: string;
     }) => (event: React.MouseEvent<HTMLButtonElement>) => void;
     handleSave: () => void;
 };
