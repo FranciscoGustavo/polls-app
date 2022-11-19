@@ -26,10 +26,7 @@ type UsePollForm = (props: { poll?: Poll }) => {
     handleDeleteQuestion: (
         uuid: string
     ) => (event: React.MouseEvent<HTMLButtonElement>) => void;
-    handleDeleteAnswer: ({
-        uuid,
-        answerUuid,
-    }: {
+    handleDeleteAnswer: (props: {
         uuid: string;
         answerUuid: string;
     }) => (event: React.MouseEvent<HTMLButtonElement>) => void;

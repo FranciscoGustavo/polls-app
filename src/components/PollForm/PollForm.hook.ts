@@ -11,9 +11,9 @@ export const usePollForm: UsePollForm = ({ poll: oldPoll }) => {
 
     const handleChange =
         (panel: string) =>
-            (event: React.SyntheticEvent | null, isExpanded: boolean) => {
-                setExpanded(isExpanded ? panel : false);
-            };
+        (event: React.SyntheticEvent | null, isExpanded: boolean) => {
+            setExpanded(isExpanded ? panel : false);
+        };
 
     const handleAddNewQuestion = () => {
         const newQuestion: Question = {
@@ -101,30 +101,30 @@ export const usePollForm: UsePollForm = ({ poll: oldPoll }) => {
 
     const handleChangeAnswer =
         ({ uuid, answerUuid }: { uuid: string; answerUuid: string }) =>
-            (event: React.ChangeEvent<HTMLInputElement>) => {
-                const questions: Questions = poll.questions.map(
-                    (currentQuestion) => {
-                        if (currentQuestion.uuid === uuid) {
-                            currentQuestion.answers = currentQuestion.answers.map(
-                                (currentAnswer) => {
-                                    if (currentAnswer.uuid === answerUuid) {
-                                        currentAnswer.answer = event.target.value;
-                                    }
-
-                                    return currentAnswer;
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const questions: Questions = poll.questions.map(
+                (currentQuestion) => {
+                    if (currentQuestion.uuid === uuid) {
+                        currentQuestion.answers = currentQuestion.answers.map(
+                            (currentAnswer) => {
+                                if (currentAnswer.uuid === answerUuid) {
+                                    currentAnswer.answer = event.target.value;
                                 }
-                            );
-                        }
 
-                        return currentQuestion;
+                                return currentAnswer;
+                            }
+                        );
                     }
-                );
 
-                setPoll({
-                    ...poll,
-                    questions,
-                });
-            };
+                    return currentQuestion;
+                }
+            );
+
+            setPoll({
+                ...poll,
+                questions,
+            });
+        };
 
     const handleDeleteQuestion =
         (uuid: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -141,27 +141,27 @@ export const usePollForm: UsePollForm = ({ poll: oldPoll }) => {
 
     const handleDeleteAnswer =
         ({ uuid, answerUuid }: { uuid: string; answerUuid: string }) =>
-            (event: React.MouseEvent<HTMLButtonElement>) => {
-                event.stopPropagation();
-                const questions: Questions = poll.questions.map(
-                    (currentQuestion) => {
-                        if (currentQuestion.uuid === uuid) {
-                            currentQuestion.answers =
+        (event: React.MouseEvent<HTMLButtonElement>) => {
+            event.stopPropagation();
+            const questions: Questions = poll.questions.map(
+                (currentQuestion) => {
+                    if (currentQuestion.uuid === uuid) {
+                        currentQuestion.answers =
                             currentQuestion.answers.filter(
                                 (currentAnswer) =>
                                     currentAnswer.uuid !== answerUuid
                             );
-                        }
-
-                        return currentQuestion;
                     }
-                );
 
-                setPoll({
-                    ...poll,
-                    questions,
-                });
-            };
+                    return currentQuestion;
+                }
+            );
+
+            setPoll({
+                ...poll,
+                questions,
+            });
+        };
 
     const handleSave = () => {
         console.log('Guardando...', poll);
