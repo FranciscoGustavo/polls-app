@@ -2,19 +2,19 @@
  * usePollForm
  */
 type CreateQuestion = () => Question;
-type UsePollFormHookReturnedProps = {
-    title: string;
-    disabledButtons: boolean;
-    onChangeTitle: (_event: any) => void;
-    questions: Questions;
-    onAddQuestion: () => void;
-    onRemoveQuestion: (uid: string) => void;
-    onGetQuestion: OnGetQuestion;
-};
-type UsePollFormHook = (params: {
-    title: string;
-    questions: Questions;
-}) => UsePollFormHookReturnedProps;
+// type UsePollFormHookReturnedProps = {
+//     title: string;
+//     disabledButtons: boolean;
+//     onChangeTitle: (_event: any) => void;
+//     questions: Questions;
+//     onAddQuestion: () => void;
+//     onRemoveQuestion: (uid: string) => void;
+//     onGetQuestion: OnGetQuestion;
+// };
+// type UsePollFormHook = (params: {
+//     title: string;
+//     questions: Questions;
+// }) => UsePollFormHookReturnedProps;
 
 /**
  * useQuestionForm

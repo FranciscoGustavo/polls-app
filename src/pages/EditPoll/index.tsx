@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, CircularProgress, Typography } from '@mui/material';
 import { findOnePoll } from '../../api/polls';
-import { Layout, PollForm, PollForm2 } from '../../components';
+import { Layout, PollForm } from '../../components';
 import { BoxRoot } from './styles';
 
 const EditPoll: FC = () => {
@@ -40,11 +40,7 @@ const EditPoll: FC = () => {
                 {error && <Typography>Error</Typography>}
                 {!loading && !error && (
                     <Container>
-                        {/* <PollForm
-                            title={poll.title}
-                            questions={poll.questions}
-                        /> */}
-                        <PollForm2 poll={poll} />
+                        <PollForm poll={poll} />
                     </Container>
                 )}
             </BoxRoot>

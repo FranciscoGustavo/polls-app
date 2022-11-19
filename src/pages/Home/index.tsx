@@ -33,10 +33,11 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-  
 
-const Confirmation: FC<{onDelete: () => void; onClose: () => void }> = ({ onDelete, onClose }) => {
-
+const Confirmation: FC<{ onDelete: () => void; onClose: () => void }> = ({
+    onDelete,
+    onClose,
+}) => {
     return (
         <Box>
             <Grid container spacing={2}>
@@ -51,12 +52,21 @@ const Confirmation: FC<{onDelete: () => void; onClose: () => void }> = ({ onDele
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button fullWidth onClick={onDelete}>Eliminar</Button>
+                    <Button fullWidth onClick={onDelete}>
+                        Eliminar
+                    </Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button variant="contained" color="secondary" fullWidth onClick={onClose}>Cancelar</Button>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        fullWidth
+                        onClick={onClose}
+                    >
+                        Cancelar
+                    </Button>
                 </Grid>
-            </Grid>            
+            </Grid>
         </Box>
     );
 };
@@ -64,8 +74,9 @@ const Confirmation: FC<{onDelete: () => void; onClose: () => void }> = ({ onDele
 const Home: FC = () => {
     const polls = usePolls();
     const [modal, setModal] = useState<boolean>(false);
-    const [currentPollUUID, setCurrentPollUUID] = useState<string | false>(false);
-    
+    const [currentPollUUID, setCurrentPollUUID] = useState<string | false>(
+        false
+    );
 
     const handleDeletePoll = (uuid: string) => () => {
         setCurrentPollUUID(uuid);
@@ -86,7 +97,6 @@ const Home: FC = () => {
                     setModal(false);
                 });
         }
-        
     };
 
     const handleCloseModal = () => {
@@ -122,10 +132,17 @@ const Home: FC = () => {
                                         </TableCell>
                                         <TableCell>0</TableCell>
                                         <TableCell align="right">
-                                            <IconButton component={Link} to={`/polls/${poll.uuid}/edit`}>
+                                            <IconButton
+                                                component={Link}
+                                                to={`/polls/${poll.uuid}/edit`}
+                                            >
                                                 <EditIcon fontSize="small" />
                                             </IconButton>
-                                            <IconButton onClick={handleDeletePoll(poll.uuid)}>
+                                            <IconButton
+                                                onClick={handleDeletePoll(
+                                                    poll.uuid
+                                                )}
+                                            >
                                                 <DeleteIcon fontSize="small" />
                                             </IconButton>
                                         </TableCell>
@@ -138,7 +155,10 @@ const Home: FC = () => {
             </BoxRoot>
             <Modal open={modal} onClose={handleCloseModal}>
                 <Paper sx={style}>
-                    <Confirmation onDelete={handleConfirmDeletePoll} onClose={handleCloseModal} />
+                    <Confirmation
+                        onDelete={handleConfirmDeletePoll}
+                        onClose={handleCloseModal}
+                    />
                 </Paper>
             </Modal>
         </Layout>

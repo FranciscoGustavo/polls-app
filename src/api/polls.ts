@@ -30,4 +30,3 @@ export const deletePoll: DeletePoll = async (uuid: string) => {
 
     return response.data.isDelete as boolean;
 };
-
