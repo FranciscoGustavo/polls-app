@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const useQuestionForm: UseQuestionFormHook = (uidQuestion, onGetQuestion) => {
-    const [question, setQuestion] = useState('');
+const useQuestionForm: UseQuestionFormHook = ({
+    uid: uidQuestion,
+    question: oldQuestion,
+    typeQuestion: oldTypeQuestion,
+    answers: oldAnswers,
+    onGetQuestion,
+}) => {
+    const [question, setQuestion] = useState(oldQuestion);
     const [typeQuestion, setTypeQuestion] =
-        useState<TypeQuestion>('open_question');
-    const [answers, setAnswers] = useState<Answers>([]);
-
+        useState<TypeQuestion>(oldTypeQuestion);
+    const [answers, setAnswers] = useState<Answers>(oldAnswers);
+    console.log(typeQuestion);
     const createAnswer: CreateAnswer = () => ({
         uuid: uuidv4(),
         answer: '',
