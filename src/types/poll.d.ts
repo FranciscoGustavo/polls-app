@@ -24,4 +24,4 @@ type Poll = {
 
 type Polls = Poll[];
 
-type CretaePoll = Omit<Poll, 'uuid'>;
+type CretaePoll = Partial<Poll, 'uuid'>;

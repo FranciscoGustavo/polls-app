@@ -14,19 +14,24 @@ export const findOnePoll = async (uuid: string) => {
     return data.body;
 };
 
-type SavePoll = (poll: CretaePoll) => Promise<void>;
-export const savePoll: SavePoll = async (poll) => {
+export const createPoll = async (poll: Poll) => {
     const response = await api.post('/', poll);
 
-    return response.data;
+    return response.data.body;
 };
 
-type SavePollAnswered = (poll: Poll) => Promise<void>;
-export const savePollAnswered: SavePollAnswered = async (/* poll */) => {};
+export const updatePoll = async (poll: Poll) => {
+    const response = await api.put(`/${poll.uuid}`, poll);
+
+    return response.data.body;
+};
 
 type DeletePoll = (uuid: string) => Promise<boolean>;
 export const deletePoll: DeletePoll = async (uuid: string) => {
     const response = await api.delete(uuid);
 
-    return response.data.isDelete as boolean;
+    return response.data.body;
 };
+
+type SavePollAnswered = (poll: Poll) => Promise<void>;
+export const savePollAnswered: SavePollAnswered = async (/* poll */) => {};

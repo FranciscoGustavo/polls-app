@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { Typography, CircularProgress } from '@mui/material';
-import { usePoll } from '../../hooks';
+import { useFindOnePoll } from '../../hooks';
 import { Layout, AnsweringQuestions } from '../../components';
 import { BoxRoot, Container } from './styles';
 
 const AnswerPoll: FC = () => {
     const params = useParams<{ uuid: string }>();
-    const { poll, isLoading, error } = usePoll(params.uuid || '');
+    const { poll, isLoading, error } = useFindOnePoll(params.uuid || '');
 
     return (
         <Layout>

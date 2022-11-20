@@ -19,7 +19,6 @@ const EditPoll: FC = () => {
         if (params.uuid) {
             findOnePoll(params.uuid)
                 .then((res) => {
-                    console.log(res);
                     setPoll(res);
                 })
                 .catch((err) => {

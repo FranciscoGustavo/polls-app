@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const usePollForm: any = ({
+export const usePollForm: any = ({
     title: oldTitle,
     questions: oldQuestions,
 }: any) => {
@@ -50,5 +50,3 @@ const usePollForm: any = ({
         onGetQuestion,
     };
 };
-
-export default usePollForm;
