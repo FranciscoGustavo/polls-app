@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { findOnePoll } from '../api/polls';
+import { findOnePoll } from '../../api/polls';
 
-const usePoll: UsePollHook = (uid: string) => {
+export const useFindOnePoll: UsePollHook = (uid: string) => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(false);
     const [poll, setPoll] = useState<Poll | undefined>();
@@ -19,5 +19,3 @@ const usePoll: UsePollHook = (uid: string) => {
         error,
     };
 };
-
-export default usePoll;

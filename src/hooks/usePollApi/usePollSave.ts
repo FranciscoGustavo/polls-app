@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {
     createPoll as createPollAPI,
     updatePoll as updatePollAPI,
-} from '../api/polls';
+} from '../../api/polls';
 
 export const usePollSave: UsePollSaveHook = () => {
     const [isSaving, setIsSaving] = useState(false);

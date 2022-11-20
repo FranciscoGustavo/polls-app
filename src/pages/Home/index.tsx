@@ -25,7 +25,7 @@ import { BoxRoot } from './styles';
 import {
     useFindAllPolls,
     useDeletePoll,
-} from '../../hooks/usePollApi';
+} from '../../hooks';
 
 const style = {
     position: 'absolute' as 'absolute',
