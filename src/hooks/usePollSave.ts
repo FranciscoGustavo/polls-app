@@ -4,7 +4,7 @@ import {
     updatePoll as updatePollAPI,
 } from '../api/polls';
 
-const usePollSave: UsePollSaveHook = (currentPoll) => {
+export const usePollSave: UsePollSaveHook = () => {
     const [isSaving, setIsSaving] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
     const [error, setError] = useState(false);
@@ -41,5 +41,3 @@ const usePollSave: UsePollSaveHook = (currentPoll) => {
         resetValues,
     };
 };
-
-export default usePollSave;

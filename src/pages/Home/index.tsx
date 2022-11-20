@@ -17,17 +17,12 @@ import {
     Grid,
     CircularProgress,
 } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-// import CloseIcon from '@mui/icons-material/Close';
-import { usePolls } from '../../hooks';
 import { Layout, PollCard } from '../../components';
 import { BoxRoot } from './styles';
-// import { deletePoll } from '../../api/polls';
 import {
-    usePollApi,
     useFindAllPolls,
     useDeletePoll,
 } from '../../hooks/usePollApi';

@@ -7,61 +7,6 @@ import {
     deletePoll as deletePollAPI,
 } from '../api/polls';
 
-export const usePollApi = () => {
-    const [polls, setPolls] = useState<Polls>([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [error, setError] = useState(false);
-
-    const findAllPolls = () => {
-        setError(false);
-        setIsLoaded(false);
-        setIsLoading(true);
-        findAllPollsAPI()
-            .then((response) => {
-                setPolls(response);
-                setIsLoaded(true);
-            })
-            .catch(() => {
-                setError(true);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    };
-
-    const savePoll = () => {};
-
-    const updatePoll = () => {};
-
-    const deletePoll = (uuid: string) => {
-        setError(false);
-        setIsLoaded(false);
-        setIsLoading(true);
-        return deletePollAPI(uuid)
-            .then(() => {
-                setIsLoaded(true);
-            })
-            .catch(() => {
-                setError(true);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    };
-
-    return {
-        polls,
-        isLoading,
-        isLoaded,
-        error,
-        findAllPolls,
-        savePoll,
-        updatePoll,
-        deletePoll,
-    };
-};
-
 export const useFindAllPolls = () => {
     const [polls, setPolls] = useState<Polls>([]);
     const [isLoading, setIsLoading] = useState(true);
