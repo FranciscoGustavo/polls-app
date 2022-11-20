@@ -1,14 +1,30 @@
-import { useState, useEffect } from 'react';
-import { savePoll as savePollApi } from '../api/polls';
+import { useState } from 'react';
+import {
+    createPoll as createPollAPI,
+    updatePoll as updatePollAPI,
+} from '../api/polls';
 
 const usePollSave: UsePollSaveHook = (currentPoll) => {
     const [isSaving, setIsSaving] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
     const [error, setError] = useState(false);
-    const [poll, setPoll] = useState<CretaePoll | undefined>(currentPoll);
 
-    const savePoll = (poll: CretaePoll) => {
-        setPoll(poll);
+    const savePoll = async (poll: Poll) => {
+        setIsSaving(true);
+        setIsSaved(false);
+        try {
+            if (poll.uuid) {
+                await updatePollAPI(poll);
+            } else {
+                await createPollAPI(poll);
+            }
+
+            setIsSaved(true);
+        } catch {
+            setError(true);
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     const resetValues = () => {
@@ -16,16 +32,6 @@ const usePollSave: UsePollSaveHook = (currentPoll) => {
         setError(false);
         setIsSaving(false);
     };
-
-    useEffect(() => {
-        if (poll) {
-            setIsSaving(false);
-            savePollApi(poll)
-                .then(() => setIsSaved(true))
-                .catch(() => setError(true))
-                .finally(() => setIsSaving(false));
-        }
-    }, [poll]);
 
     return {
         savePoll,

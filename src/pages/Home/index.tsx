@@ -1,4 +1,4 @@
-import { useState, FC } from 'react';
+import { useState, FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
     Container,
@@ -15,14 +15,22 @@ import {
     Typography,
     Button,
     Grid,
+    CircularProgress,
 } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
+
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 // import CloseIcon from '@mui/icons-material/Close';
 import { usePolls } from '../../hooks';
 import { Layout, PollCard } from '../../components';
 import { BoxRoot } from './styles';
-import { deletePoll } from '../../api/polls';
+// import { deletePoll } from '../../api/polls';
+import {
+    usePollApi,
+    useFindAllPolls,
+    useDeletePoll,
+} from '../../hooks/usePollApi';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -72,7 +80,14 @@ const Confirmation: FC<{ onDelete: () => void; onClose: () => void }> = ({
 };
 
 const Home: FC = () => {
-    const polls = usePolls();
+    const {
+        polls,
+        isLoading: isLoadingPolls,
+        isLoaded: isLoadedPolls,
+        error: errorPolls,
+        refetch,
+    } = useFindAllPolls();
+    const { isLoading, deletePoll } = useDeletePoll();
     const [modal, setModal] = useState<boolean>(false);
     const [currentPollUUID, setCurrentPollUUID] = useState<string | false>(
         false
@@ -81,22 +96,13 @@ const Home: FC = () => {
     const handleDeletePoll = (uuid: string) => () => {
         setCurrentPollUUID(uuid);
         setModal(true);
-        console.log('Eliminando');
     };
 
     const handleConfirmDeletePoll = () => {
         if (currentPollUUID) {
-            deletePoll(currentPollUUID)
-                .then((res) => {
-                    console.log('', res);
-                })
-                .catch((error) => {
-                    console.log('ERROR', error);
-                })
-                .then(() => {
-                    setModal(false);
-                });
+            deletePoll(currentPollUUID).finally(() => refetch());
         }
+        setModal(false);
     };
 
     const handleCloseModal = () => {
@@ -107,50 +113,68 @@ const Home: FC = () => {
         <Layout>
             <BoxRoot>
                 <Container>
-                    <TableContainer component={Paper}>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>ID</TableCell>
-                                    <TableCell>Titulo</TableCell>
-                                    <TableCell>Preguntas</TableCell>
-                                    <TableCell>Contestadas</TableCell>
-                                    <TableCell align="right">
-                                        Acciones
-                                    </TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {polls.map((poll) => (
-                                    <TableRow key={poll.uuid}>
-                                        <TableCell>
-                                            {poll.uuid.substring(0, 8)}
-                                        </TableCell>
-                                        <TableCell>{poll.title}</TableCell>
-                                        <TableCell>
-                                            {poll.questions.length}
-                                        </TableCell>
-                                        <TableCell>0</TableCell>
+                    {isLoadingPolls && <Typography>Cargando...</Typography>}
+                    {isLoadedPolls && (
+                        <TableContainer component={Paper}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>ID</TableCell>
+                                        <TableCell>Titulo</TableCell>
+                                        <TableCell>Preguntas</TableCell>
+                                        <TableCell>Contestadas</TableCell>
                                         <TableCell align="right">
-                                            <IconButton
-                                                component={Link}
-                                                to={`/polls/${poll.uuid}/edit`}
-                                            >
-                                                <EditIcon fontSize="small" />
-                                            </IconButton>
-                                            <IconButton
-                                                onClick={handleDeletePoll(
-                                                    poll.uuid
-                                                )}
-                                            >
-                                                <DeleteIcon fontSize="small" />
-                                            </IconButton>
+                                            Acciones
                                         </TableCell>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                </TableHead>
+                                <TableBody>
+                                    {polls.map((poll) => (
+                                        <TableRow key={poll.uuid}>
+                                            <TableCell>
+                                                {poll.uuid.substring(0, 8)}
+                                            </TableCell>
+                                            <TableCell>{poll.title}</TableCell>
+                                            <TableCell>
+                                                {poll.questions.length}
+                                            </TableCell>
+                                            <TableCell>0</TableCell>
+                                            <TableCell align="right">
+                                                <IconButton
+                                                    component={Link}
+                                                    to={`/polls/${poll.uuid}/edit`}
+                                                >
+                                                    <EditIcon fontSize="small" />
+                                                </IconButton>
+                                                <IconButton
+                                                    disabled={
+                                                        currentPollUUID ===
+                                                            poll.uuid &&
+                                                        isLoading
+                                                    }
+                                                    onClick={handleDeletePoll(
+                                                        poll.uuid
+                                                    )}
+                                                >
+                                                    {!isLoading && (
+                                                        <DeleteIcon fontSize="small" />
+                                                    )}
+                                                    {currentPollUUID ===
+                                                        poll.uuid &&
+                                                        isLoading && (
+                                                        <CircularProgress
+                                                            size={16}
+                                                            color="info"
+                                                        />
+                                                    )}
+                                                </IconButton>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    )}
                 </Container>
             </BoxRoot>
             <Modal open={modal} onClose={handleCloseModal}>
