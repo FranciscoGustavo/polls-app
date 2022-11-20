@@ -6,7 +6,6 @@ export const reducer = (
     state: Poll,
     action: { type: string; payload: any }
 ) => {
-    console.log('REDUCER', action);
     const newState = cloneDeep(state);
 
     switch (action.type) {

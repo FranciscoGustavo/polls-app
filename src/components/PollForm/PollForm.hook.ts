@@ -100,7 +100,6 @@ export const usePollForm: UsePollForm = ({ poll: oldPoll }) => {
     );
 
     const handleSave = () => {
-        // console.log('Guardando...', poll);
         savePoll(poll);
     };
 
