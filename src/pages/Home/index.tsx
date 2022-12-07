@@ -1,4 +1,4 @@
-import { useState, FC, useEffect } from 'react';
+import { useState, useId, FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
     Container,
@@ -16,8 +16,8 @@ import {
     Button,
     Grid,
     CircularProgress,
+    Skeleton,
 } from '@mui/material';
-
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Layout, PollCard } from '../../components';
@@ -75,6 +75,7 @@ const Confirmation: FC<{ onDelete: () => void; onClose: () => void }> = ({
 };
 
 const Home: FC = () => {
+    const id = useId();
     const {
         polls,
         isLoading: isLoadingPolls,
@@ -108,68 +109,74 @@ const Home: FC = () => {
         <Layout>
             <BoxRoot>
                 <Container>
-                    {isLoadingPolls && <Typography>Cargando...</Typography>}
-                    {isLoadedPolls && (
-                        <TableContainer component={Paper}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>ID</TableCell>
-                                        <TableCell>Titulo</TableCell>
-                                        <TableCell>Preguntas</TableCell>
-                                        <TableCell>Contestadas</TableCell>
+                    <TableContainer component={Paper}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>ID</TableCell>
+                                    <TableCell>Titulo</TableCell>
+                                    <TableCell>Preguntas</TableCell>
+                                    <TableCell>Contestadas</TableCell>
+                                    <TableCell align="right">
+                                        Acciones
+                                    </TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {isLoadingPolls && new Array(24).fill(null).map((_, idx) => (
+                                    <TableRow key={`${id}-${idx}`}>
+                                        <TableCell><Skeleton variant="rectangular" height={20} animation="wave" /></TableCell>
+                                        <TableCell><Skeleton variant="rectangular" height={20} animation="wave" /></TableCell>
+                                        <TableCell><Skeleton variant="circular" width={20} height={20} animation="wave" /></TableCell>
+                                        <TableCell><Skeleton variant="circular" width={20} height={20} animation="wave" /></TableCell>
+                                        <TableCell align="right"><Skeleton variant="rectangular" width={80} height={20} animation="wave" /></TableCell>
+                                    </TableRow>
+                                ))}
+                                {isLoadedPolls && polls.map((poll) => (
+                                    <TableRow key={poll.uuid}>
+                                        <TableCell>
+                                            {poll.uuid.substring(0, 8)}
+                                        </TableCell>
+                                        <TableCell>{poll.title}</TableCell>
+                                        <TableCell>
+                                            {poll.questions.length}
+                                        </TableCell>
+                                        <TableCell>0</TableCell>
                                         <TableCell align="right">
-                                            Acciones
+                                            <IconButton
+                                                component={Link}
+                                                to={`/polls/${poll.uuid}/edit`}
+                                            >
+                                                <EditIcon fontSize="small" />
+                                            </IconButton>
+                                            <IconButton
+                                                disabled={
+                                                    currentPollUUID ===
+                                                        poll.uuid &&
+                                                    isLoading
+                                                }
+                                                onClick={handleDeletePoll(
+                                                    poll.uuid
+                                                )}
+                                            >
+                                                {!isLoading && (
+                                                    <DeleteIcon fontSize="small" />
+                                                )}
+                                                {currentPollUUID ===
+                                                    poll.uuid &&
+                                                    isLoading && (
+                                                    <CircularProgress
+                                                        size={16}
+                                                        color="info"
+                                                    />
+                                                )}
+                                            </IconButton>
                                         </TableCell>
                                     </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {polls.map((poll) => (
-                                        <TableRow key={poll.uuid}>
-                                            <TableCell>
-                                                {poll.uuid.substring(0, 8)}
-                                            </TableCell>
-                                            <TableCell>{poll.title}</TableCell>
-                                            <TableCell>
-                                                {poll.questions.length}
-                                            </TableCell>
-                                            <TableCell>0</TableCell>
-                                            <TableCell align="right">
-                                                <IconButton
-                                                    component={Link}
-                                                    to={`/polls/${poll.uuid}/edit`}
-                                                >
-                                                    <EditIcon fontSize="small" />
-                                                </IconButton>
-                                                <IconButton
-                                                    disabled={
-                                                        currentPollUUID ===
-                                                            poll.uuid &&
-                                                        isLoading
-                                                    }
-                                                    onClick={handleDeletePoll(
-                                                        poll.uuid
-                                                    )}
-                                                >
-                                                    {!isLoading && (
-                                                        <DeleteIcon fontSize="small" />
-                                                    )}
-                                                    {currentPollUUID ===
-                                                        poll.uuid &&
-                                                        isLoading && (
-                                                        <CircularProgress
-                                                            size={16}
-                                                            color="info"
-                                                        />
-                                                    )}
-                                                </IconButton>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    )}
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </Container>
             </BoxRoot>
             <Modal open={modal} onClose={handleCloseModal}>
