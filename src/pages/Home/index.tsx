@@ -12,15 +12,12 @@ import {
     IconButton,
     Modal,
     Box,
-    Typography,
-    Button,
-    Grid,
     CircularProgress,
-    Skeleton,
+    Typography,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Layout, PollCard } from '../../components';
+import { Layout, Skeleton, Confirmation } from '../../components';
 import { BoxRoot } from './styles';
 import {
     useFindAllPolls,
@@ -35,43 +32,6 @@ const style = {
     width: 400,
     boxShadow: 24,
     p: 4,
-};
-
-const Confirmation: FC<{ onDelete: () => void; onClose: () => void }> = ({
-    onDelete,
-    onClose,
-}) => {
-    return (
-        <Box>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Typography variant="h5" textAlign="center">
-                        Eliminar encuesta
-                    </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant="body2" textAlign="center">
-                        Estas Seguro?
-                    </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button fullWidth onClick={onDelete}>
-                        Eliminar
-                    </Button>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        fullWidth
-                        onClick={onClose}
-                    >
-                        Cancelar
-                    </Button>
-                </Grid>
-            </Grid>
-        </Box>
-    );
 };
 
 const Home: FC = () => {
@@ -108,8 +68,8 @@ const Home: FC = () => {
     return (
         <Layout>
             <BoxRoot>
-                <Container>
-                    <TableContainer component={Paper}>
+                <Container sx={{ height: '100%' }}>
+                    <TableContainer component={Paper} sx={{ height: '100%' }}>
                         <Table>
                             <TableHead>
                                 <TableRow>
@@ -129,7 +89,11 @@ const Home: FC = () => {
                                         <TableCell><Skeleton variant="rectangular" height={20} animation="wave" /></TableCell>
                                         <TableCell><Skeleton variant="circular" width={20} height={20} animation="wave" /></TableCell>
                                         <TableCell><Skeleton variant="circular" width={20} height={20} animation="wave" /></TableCell>
-                                        <TableCell align="right"><Skeleton variant="rectangular" width={80} height={20} animation="wave" /></TableCell>
+                                        <TableCell align="right">
+                                            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                                <Skeleton variant="rectangular" width={80} height={20} animation="wave" />
+                                            </Box>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                                 {isLoadedPolls && polls.map((poll) => (
@@ -174,6 +138,15 @@ const Home: FC = () => {
                                         </TableCell>
                                     </TableRow>
                                 ))}
+                                {errorPolls && (
+                                    <TableRow>
+                                        <TableCell colSpan={5}>
+                                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', paddingTop: '50px' }}>
+                                                <Typography variant="h3">Opps algo salio mal vuelve a recargar la pagina</Typography>
+                                            </Box>
+                                        </TableCell>
+                                    </TableRow>
+                                )}
                             </TableBody>
                         </Table>
                     </TableContainer>
