@@ -7,7 +7,7 @@ const NewPoll: FC = () => {
     return (
         <Layout>
             <BoxRoot>
-                <Container maxWidth="md">
+                <Container>
                     <PollForm />
                 </Container>
             </BoxRoot>
