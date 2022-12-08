@@ -1,4 +1,5 @@
 export const ACTION_TYPES = {
+    UPDATE_ALL_POLL: 'UPDATE_ALL_POLL',
     UPDATE_TITLE: 'UPDATE_TITLE',
     ADD_NEW_QUESTION: 'ADD_NEW_QUESTION',
     UPDATE_QUESTION: 'UPDATE_QUESTION',
@@ -8,6 +9,11 @@ export const ACTION_TYPES = {
     DELETE_QUESTION: 'DELETE_QUESTION',
     DELETE_ANSWER: 'DELETE_ANSWER',
 };
+
+export const updateAllPoll = (payload: Poll) => ({
+    type: ACTION_TYPES.UPDATE_ALL_POLL,
+    payload,
+});
 
 export const updateTitle = (payload: string) => ({
     type: ACTION_TYPES.UPDATE_TITLE,

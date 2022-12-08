@@ -43,7 +43,7 @@ type UseQuestionFormHook = (props: {
  * usePollSave
  */
 type UsePollSaveHookReturnedProps = {
-    savePoll: (poll: CreatePoll) => void;
+    savePoll: (poll: CreatePoll) => Promse<Poll>;
     isSaved: boolean;
     isSaving: boolean;
     error: boolean;

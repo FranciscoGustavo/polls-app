@@ -9,14 +9,15 @@ export const usePollSave: UsePollSaveHook = () => {
     const [isSaved, setIsSaved] = useState(false);
     const [error, setError] = useState(false);
 
-    const savePoll = async (poll: Poll) => {
+    const savePoll = async (poll: Poll): Promise<Poll> => {
         setIsSaving(true);
         setIsSaved(false);
+        let currentPoll = poll;
         try {
             if (poll.uuid) {
-                await updatePollAPI(poll);
+                currentPoll = await updatePollAPI(poll);
             } else {
-                await createPollAPI(poll);
+                currentPoll = await createPollAPI(poll);
             }
 
             setIsSaved(true);
@@ -25,6 +26,8 @@ export const usePollSave: UsePollSaveHook = () => {
         } finally {
             setIsSaving(false);
         }
+
+        return currentPoll;
     };
 
     const resetValues = () => {

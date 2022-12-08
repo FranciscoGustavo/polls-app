@@ -1,4 +1,4 @@
-import { useState, FC, useEffect } from 'react';
+import { useState, useId, FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
     Container,
@@ -12,20 +12,14 @@ import {
     IconButton,
     Modal,
     Box,
-    Typography,
-    Button,
-    Grid,
     CircularProgress,
+    Typography,
 } from '@mui/material';
-
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Layout, PollCard } from '../../components';
+import { Layout, Skeleton, Confirmation } from '../../components';
 import { BoxRoot } from './styles';
-import {
-    useFindAllPolls,
-    useDeletePoll,
-} from '../../hooks';
+import { useFindAllPolls, useDeletePoll } from '../../hooks';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -37,44 +31,8 @@ const style = {
     p: 4,
 };
 
-const Confirmation: FC<{ onDelete: () => void; onClose: () => void }> = ({
-    onDelete,
-    onClose,
-}) => {
-    return (
-        <Box>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Typography variant="h5" textAlign="center">
-                        Eliminar encuesta
-                    </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant="body2" textAlign="center">
-                        Estas Seguro?
-                    </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button fullWidth onClick={onDelete}>
-                        Eliminar
-                    </Button>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        fullWidth
-                        onClick={onClose}
-                    >
-                        Cancelar
-                    </Button>
-                </Grid>
-            </Grid>
-        </Box>
-    );
-};
-
 const Home: FC = () => {
+    const id = useId();
     const {
         polls,
         isLoading: isLoadingPolls,
@@ -107,24 +65,74 @@ const Home: FC = () => {
     return (
         <Layout>
             <BoxRoot>
-                <Container>
-                    {isLoadingPolls && <Typography>Cargando...</Typography>}
-                    {isLoadedPolls && (
-                        <TableContainer component={Paper}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>ID</TableCell>
-                                        <TableCell>Titulo</TableCell>
-                                        <TableCell>Preguntas</TableCell>
-                                        <TableCell>Contestadas</TableCell>
-                                        <TableCell align="right">
-                                            Acciones
-                                        </TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {polls.map((poll) => (
+                <Container sx={{ height: '100%' }}>
+                    <TableContainer component={Paper} sx={{ height: '100%' }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>ID</TableCell>
+                                    <TableCell>Titulo</TableCell>
+                                    <TableCell>Preguntas</TableCell>
+                                    <TableCell>Contestadas</TableCell>
+                                    <TableCell align="right">
+                                        Acciones
+                                    </TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {isLoadingPolls &&
+                                    new Array(24).fill(null).map((_, idx) => (
+                                        <TableRow key={`${id}-${idx}`}>
+                                            <TableCell>
+                                                <Skeleton
+                                                    variant="rectangular"
+                                                    height={20}
+                                                    animation="wave"
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <Skeleton
+                                                    variant="rectangular"
+                                                    height={20}
+                                                    animation="wave"
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <Skeleton
+                                                    variant="circular"
+                                                    width={20}
+                                                    height={20}
+                                                    animation="wave"
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <Skeleton
+                                                    variant="circular"
+                                                    width={20}
+                                                    height={20}
+                                                    animation="wave"
+                                                />
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                <Box
+                                                    sx={{
+                                                        display: 'flex',
+                                                        justifyContent:
+                                                            'flex-end',
+                                                    }}
+                                                >
+                                                    <Skeleton
+                                                        variant="rectangular"
+                                                        width={80}
+                                                        height={20}
+                                                        animation="wave"
+                                                    />
+                                                </Box>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                {isLoadedPolls &&
+                                    polls.map((poll) => (
                                         <TableRow key={poll.uuid}>
                                             <TableCell>
                                                 {poll.uuid.substring(0, 8)}
@@ -166,10 +174,29 @@ const Home: FC = () => {
                                             </TableCell>
                                         </TableRow>
                                     ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    )}
+                                {errorPolls && (
+                                    <TableRow>
+                                        <TableCell colSpan={5}>
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    height: '100%',
+                                                    paddingTop: '50px',
+                                                }}
+                                            >
+                                                <Typography variant="h3">
+                                                    Opps algo salio mal vuelve a
+                                                    recargar la pagina
+                                                </Typography>
+                                            </Box>
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </Container>
             </BoxRoot>
             <Modal open={modal} onClose={handleCloseModal}>
