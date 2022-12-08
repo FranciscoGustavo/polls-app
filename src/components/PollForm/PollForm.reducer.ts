@@ -9,6 +9,10 @@ export const reducer = (
     const newState = cloneDeep(state);
 
     switch (action.type) {
+    case ACTION_TYPES.UPDATE_ALL_POLL:
+        return {
+            ...cloneDeep(action.payload as Poll),
+        };
     case ACTION_TYPES.UPDATE_TITLE:
         return {
             ...newState,

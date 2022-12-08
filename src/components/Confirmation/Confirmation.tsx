@@ -1,15 +1,10 @@
 import { FC } from 'react';
-import {
-    Box,
-    Typography,
-    Button,
-    Grid,
-} from '@mui/material';
+import { Box, Typography, Button, Grid } from '@mui/material';
 
-export const Confirmation: FC<{ onDelete: () => void; onClose: () => void }> = ({
-    onDelete,
-    onClose,
-}) => {
+export const Confirmation: FC<{
+    onDelete: () => void;
+    onClose: () => void;
+}> = ({ onDelete, onClose }) => {
     return (
         <Box>
             <Grid container spacing={2}>

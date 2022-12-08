@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback, useReducer } from 'react';
+import React, { useState, useCallback, useReducer } from 'react';
 import { reducer } from './PollForm.reducer';
 import {
     addNewAnswer,
@@ -9,6 +9,7 @@ import {
     updateQuestion,
     updateTitle,
     updateTypeQuestion,
+    updateAllPoll,
 } from './PollForm.actions';
 import { usePollSave } from '../../hooks';
 
@@ -25,7 +26,7 @@ export const usePollForm: UsePollForm = ({ poll: oldPoll }) => {
     );
 
     const [expanded, setExpanded] = useState<string | false>(false);
-    const { savePoll, isSaving, isSaved, error, resetValues } = usePollSave();
+    const { savePoll, isSaving, isSaved, error } = usePollSave();
 
     const handleAccordion = useCallback(
         (panel: string) =>
@@ -99,8 +100,9 @@ export const usePollForm: UsePollForm = ({ poll: oldPoll }) => {
         []
     );
 
-    const handleSave = () => {
-        savePoll(poll);
+    const handleSave = async () => {
+        const savedPoll = await savePoll(poll);
+        dispatch(updateAllPoll(savedPoll));
     };
 
     return {

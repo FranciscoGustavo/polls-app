@@ -19,10 +19,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Layout, Skeleton, Confirmation } from '../../components';
 import { BoxRoot } from './styles';
-import {
-    useFindAllPolls,
-    useDeletePoll,
-} from '../../hooks';
+import { useFindAllPolls, useDeletePoll } from '../../hooks';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -83,66 +80,116 @@ const Home: FC = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {isLoadingPolls && new Array(24).fill(null).map((_, idx) => (
-                                    <TableRow key={`${id}-${idx}`}>
-                                        <TableCell><Skeleton variant="rectangular" height={20} animation="wave" /></TableCell>
-                                        <TableCell><Skeleton variant="rectangular" height={20} animation="wave" /></TableCell>
-                                        <TableCell><Skeleton variant="circular" width={20} height={20} animation="wave" /></TableCell>
-                                        <TableCell><Skeleton variant="circular" width={20} height={20} animation="wave" /></TableCell>
-                                        <TableCell align="right">
-                                            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                                <Skeleton variant="rectangular" width={80} height={20} animation="wave" />
-                                            </Box>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                                {isLoadedPolls && polls.map((poll) => (
-                                    <TableRow key={poll.uuid}>
-                                        <TableCell>
-                                            {poll.uuid.substring(0, 8)}
-                                        </TableCell>
-                                        <TableCell>{poll.title}</TableCell>
-                                        <TableCell>
-                                            {poll.questions.length}
-                                        </TableCell>
-                                        <TableCell>0</TableCell>
-                                        <TableCell align="right">
-                                            <IconButton
-                                                component={Link}
-                                                to={`/polls/${poll.uuid}/edit`}
-                                            >
-                                                <EditIcon fontSize="small" />
-                                            </IconButton>
-                                            <IconButton
-                                                disabled={
-                                                    currentPollUUID ===
-                                                        poll.uuid &&
-                                                    isLoading
-                                                }
-                                                onClick={handleDeletePoll(
-                                                    poll.uuid
-                                                )}
-                                            >
-                                                {!isLoading && (
-                                                    <DeleteIcon fontSize="small" />
-                                                )}
-                                                {currentPollUUID ===
-                                                    poll.uuid &&
-                                                    isLoading && (
-                                                    <CircularProgress
-                                                        size={16}
-                                                        color="info"
+                                {isLoadingPolls &&
+                                    new Array(24).fill(null).map((_, idx) => (
+                                        <TableRow key={`${id}-${idx}`}>
+                                            <TableCell>
+                                                <Skeleton
+                                                    variant="rectangular"
+                                                    height={20}
+                                                    animation="wave"
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <Skeleton
+                                                    variant="rectangular"
+                                                    height={20}
+                                                    animation="wave"
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <Skeleton
+                                                    variant="circular"
+                                                    width={20}
+                                                    height={20}
+                                                    animation="wave"
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <Skeleton
+                                                    variant="circular"
+                                                    width={20}
+                                                    height={20}
+                                                    animation="wave"
+                                                />
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                <Box
+                                                    sx={{
+                                                        display: 'flex',
+                                                        justifyContent:
+                                                            'flex-end',
+                                                    }}
+                                                >
+                                                    <Skeleton
+                                                        variant="rectangular"
+                                                        width={80}
+                                                        height={20}
+                                                        animation="wave"
                                                     />
-                                                )}
-                                            </IconButton>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
+                                                </Box>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                {isLoadedPolls &&
+                                    polls.map((poll) => (
+                                        <TableRow key={poll.uuid}>
+                                            <TableCell>
+                                                {poll.uuid.substring(0, 8)}
+                                            </TableCell>
+                                            <TableCell>{poll.title}</TableCell>
+                                            <TableCell>
+                                                {poll.questions.length}
+                                            </TableCell>
+                                            <TableCell>0</TableCell>
+                                            <TableCell align="right">
+                                                <IconButton
+                                                    component={Link}
+                                                    to={`/polls/${poll.uuid}/edit`}
+                                                >
+                                                    <EditIcon fontSize="small" />
+                                                </IconButton>
+                                                <IconButton
+                                                    disabled={
+                                                        currentPollUUID ===
+                                                            poll.uuid &&
+                                                        isLoading
+                                                    }
+                                                    onClick={handleDeletePoll(
+                                                        poll.uuid
+                                                    )}
+                                                >
+                                                    {!isLoading && (
+                                                        <DeleteIcon fontSize="small" />
+                                                    )}
+                                                    {currentPollUUID ===
+                                                        poll.uuid &&
+                                                        isLoading && (
+                                                        <CircularProgress
+                                                            size={16}
+                                                            color="info"
+                                                        />
+                                                    )}
+                                                </IconButton>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
                                 {errorPolls && (
                                     <TableRow>
                                         <TableCell colSpan={5}>
-                                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', paddingTop: '50px' }}>
-                                                <Typography variant="h3">Opps algo salio mal vuelve a recargar la pagina</Typography>
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    height: '100%',
+                                                    paddingTop: '50px',
+                                                }}
+                                            >
+                                                <Typography variant="h3">
+                                                    Opps algo salio mal vuelve a
+                                                    recargar la pagina
+                                                </Typography>
                                             </Box>
                                         </TableCell>
                                     </TableRow>
