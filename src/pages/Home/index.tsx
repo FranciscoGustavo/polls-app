@@ -1,5 +1,6 @@
 import { useState, useId, FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import {
     Container,
     Paper,
@@ -64,6 +65,10 @@ const Home: FC = () => {
 
     return (
         <Layout>
+            <Helmet>
+                <title>Polls App</title>
+                <meta name="description" content="Pagina home de la aplicacion de encuestas" />
+            </Helmet>
             <BoxRoot>
                 <Container sx={{ height: '100%' }}>
                     <TableContainer component={Paper} sx={{ height: '100%' }}>
