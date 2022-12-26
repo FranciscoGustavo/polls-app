@@ -1,5 +1,5 @@
-import { useState, useId, FC, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useId, FC, useMemo } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import {
     Container,
@@ -10,6 +10,8 @@ import {
     TableContainer,
     TableHead,
     TableRow,
+    TableFooter,
+    TablePagination,
     IconButton,
     Modal,
     Box,
@@ -18,6 +20,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import queryString from 'query-string';
 import { Layout, Skeleton, Confirmation } from '../../components';
 import { BoxRoot } from './styles';
 import { useFindAllPolls, useDeletePoll } from '../../hooks';
@@ -34,6 +37,17 @@ const style = {
 
 const Home: FC = () => {
     const id = useId();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const searchParams = useMemo(() => {
+        const params = queryString.parse(location.search);
+
+        return {
+            page: Number(params.page) - 1 || 0,
+            limit: Number(params.limit) || 24,
+        };
+    }, [location.search]);
+    
     const {
         polls,
         isLoading: isLoadingPolls,
@@ -61,6 +75,18 @@ const Home: FC = () => {
 
     const handleCloseModal = () => {
         setModal(false);
+    };
+
+    const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
+        const limit = searchParams.limit;
+        navigate({ pathname: '/', search: `?page=${page + 1}&limit=${limit}` });
+    };
+
+    const handleChangeRowsPerPage: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = (event) => {
+        const limit = event.target.value;
+        const page = searchParams.page;
+        navigate({ pathname: '/', search: `?page=${page + 1}&limit=${limit}` });
+        
     };
 
     return (
@@ -200,6 +226,21 @@ const Home: FC = () => {
                                     </TableRow>
                                 )}
                             </TableBody>
+                            <TableFooter>
+                                <TableRow>
+                                    <TablePagination
+                                        labelRowsPerPage="Encuestas por pagina"
+                                        rowsPerPageOptions={[5, 10, 24]}
+                                        count={240}
+                                        rowsPerPage={searchParams.limit}
+                                        page={searchParams.page}
+                                        showFirstButton
+                                        showLastButton
+                                        onPageChange={handleChangePage}
+                                        onRowsPerPageChange={handleChangeRowsPerPage}
+                                    />
+                                </TableRow>
+                            </TableFooter>
                         </Table>
                     </TableContainer>
                 </Container>
