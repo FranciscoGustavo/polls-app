@@ -54,7 +54,7 @@ const Home: FC = () => {
         isLoaded: isLoadedPolls,
         error: errorPolls,
         refetch,
-    } = useFindAllPolls();
+    } = useFindAllPolls(searchParams);
     const { isLoading, deletePoll } = useDeletePoll();
     const [modal, setModal] = useState<boolean>(false);
     const [currentPollUUID, setCurrentPollUUID] = useState<string | false>(
