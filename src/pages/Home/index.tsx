@@ -49,6 +49,7 @@ const Home: FC = () => {
     }, [location.search]);
     
     const {
+        totalCount,
         polls,
         isLoading: isLoadingPolls,
         isLoaded: isLoadedPolls,
@@ -231,7 +232,7 @@ const Home: FC = () => {
                                     <TablePagination
                                         labelRowsPerPage="Encuestas por pagina"
                                         rowsPerPageOptions={[5, 10, 24]}
-                                        count={240}
+                                        count={totalCount}
                                         rowsPerPage={searchParams.limit}
                                         page={searchParams.page}
                                         showFirstButton
