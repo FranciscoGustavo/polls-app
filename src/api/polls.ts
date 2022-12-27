@@ -2,10 +2,10 @@ import axios from 'axios';
 
 const api = axios.create({ baseURL: process.env.REACT_APP_API_URL });
 
-export const findAllPolls = async () => {
-    const { data } = await api.get('/');
+export const findAllPolls = async ({ page, limit }: { page: number, limit: number }): Promise<{ polls: Polls; total: number }> => {
+    const { data } = await api.get(`/?page=${page + 1}&limit=${limit}`);
 
-    return data.body;
+    return data.body as { polls: Polls; total: number };
 };
 
 export const findOnePoll = async (uuid: string) => {

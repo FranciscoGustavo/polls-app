@@ -1,5 +1,6 @@
-import { useState, useId, FC, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useId, FC, useMemo } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import {
     Container,
     Paper,
@@ -9,6 +10,8 @@ import {
     TableContainer,
     TableHead,
     TableRow,
+    TableFooter,
+    TablePagination,
     IconButton,
     Modal,
     Box,
@@ -17,6 +20,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import queryString from 'query-string';
 import { Layout, Skeleton, Confirmation } from '../../components';
 import { BoxRoot } from './styles';
 import { useFindAllPolls, useDeletePoll } from '../../hooks';
@@ -33,13 +37,25 @@ const style = {
 
 const Home: FC = () => {
     const id = useId();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const searchParams = useMemo(() => {
+        const params = queryString.parse(location.search);
+
+        return {
+            page: Number(params.page) - 1 || 0,
+            limit: Number(params.limit) || 24,
+        };
+    }, [location.search]);
+    
     const {
+        totalCount,
         polls,
         isLoading: isLoadingPolls,
         isLoaded: isLoadedPolls,
         error: errorPolls,
         refetch,
-    } = useFindAllPolls();
+    } = useFindAllPolls(searchParams);
     const { isLoading, deletePoll } = useDeletePoll();
     const [modal, setModal] = useState<boolean>(false);
     const [currentPollUUID, setCurrentPollUUID] = useState<string | false>(
@@ -62,8 +78,24 @@ const Home: FC = () => {
         setModal(false);
     };
 
+    const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
+        const limit = searchParams.limit;
+        navigate({ pathname: '/', search: `?page=${page + 1}&limit=${limit}` });
+    };
+
+    const handleChangeRowsPerPage: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = (event) => {
+        const limit = event.target.value;
+        const page = searchParams.page;
+        navigate({ pathname: '/', search: `?page=${page + 1}&limit=${limit}` });
+        
+    };
+
     return (
         <Layout>
+            <Helmet>
+                <title>Polls App</title>
+                <meta name="description" content="Pagina home de la aplicacion de encuestas" />
+            </Helmet>
             <BoxRoot>
                 <Container sx={{ height: '100%' }}>
                     <TableContainer component={Paper} sx={{ height: '100%' }}>
@@ -195,6 +227,21 @@ const Home: FC = () => {
                                     </TableRow>
                                 )}
                             </TableBody>
+                            <TableFooter>
+                                <TableRow>
+                                    <TablePagination
+                                        labelRowsPerPage="Encuestas por pagina"
+                                        rowsPerPageOptions={[5, 10, 24]}
+                                        count={totalCount}
+                                        rowsPerPage={searchParams.limit}
+                                        page={searchParams.page}
+                                        showFirstButton
+                                        showLastButton
+                                        onPageChange={handleChangePage}
+                                        onRowsPerPageChange={handleChangeRowsPerPage}
+                                    />
+                                </TableRow>
+                            </TableFooter>
                         </Table>
                     </TableContainer>
                 </Container>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, FC } from 'react';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { Container, CircularProgress, Typography } from '@mui/material';
 import { findOnePoll } from '../../api/polls';
@@ -34,6 +35,10 @@ const EditPoll: FC = () => {
 
     return (
         <Layout>
+            <Helmet>
+                <title>Editar encuesta</title>
+                <meta name="description" content="Editar una encuesta" />
+            </Helmet>
             <BoxRoot>
                 {loading && <CircularProgress />}
                 {error && <Typography>Error</Typography>}
